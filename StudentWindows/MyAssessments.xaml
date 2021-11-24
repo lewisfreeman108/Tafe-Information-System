@@ -1,0 +1,79 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Tafe_System.StudentWindows"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit" x:Class="Tafe_System.StudentWindows.MyAssessments"
+        mc:Ignorable="d"
+        Title="MyAssessments" Height="985" Width="1424">
+    <ScrollViewer Margin="5,5,0,5" CanContentScroll="False"
+              HorizontalScrollBarVisibility="Auto">
+        <Grid Width="1364">
+            <DataGrid x:Name="dsetEnrolments" HorizontalAlignment="Center" IsReadOnly="True" Height="91" VerticalAlignment="Top" Width="1344" AutoGenerateColumns="False" RenderTransformOrigin="0.492,-0.166" ItemsSource="{Binding ElementName=dataGridTextColumn, Mode=OneWay}" SelectionChanged="dsetEnrolments_SelectionChanged" Margin="0,68,0,0">
+                <DataGrid.Columns>
+                    <DataGridTextColumn x:Name="dataGridTextColumn1" Header= "ID" Width=".25*" Binding="{Binding enrolmentid}"/>
+                    <DataGridTextColumn Header="Course" Width="*" Binding="{Binding coursename}"/>
+                    <DataGridTextColumn Header="Location" Width="*" Binding="{Binding locationname}"/>
+                    <DataGridTextColumn Header="Year" Width=".5*" Binding="{Binding year}"/>
+                    <DataGridTextColumn Header="Semester" Width="*" Binding="{Binding semester}"/>
+                    <DataGridTextColumn Header="Enrolment Status" Width="*" Binding="{Binding enrolmentstatus}"/>
+                    <DataGridTextColumn Header="Payment Method" Width="*" Binding="{Binding paymentmethod}"/>
+                    <DataGridTextColumn Header="Amount Paid" Width="*" Binding="{Binding amountpaid}"/>
+                    <DataGridTextColumn Header="Amount Outstanding" Width="*" Binding="{Binding amountoutstanding}"/>
+                    <DataGridTextColumn Header="Enrolment Date" Width="*" Binding="{Binding enrolmentdate}"/>
+                    <DataGridTextColumn Header="Type" Width="*" Binding="{Binding offeringtype}"/>
+                    <DataGridTextColumn Header="Start Date" Width=".75*" Binding="{Binding startdate}"/>
+                    <DataGridTextColumn Header="End Date" Width=".75*" Binding="{Binding enddate}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+            <Label Content="My Enrolments" HorizontalContentAlignment="Center" HorizontalAlignment="Center" Margin="0,37,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.132,0.462" Width="496"/>
+            <DataGrid x:Name="dsetUnitClusters" HorizontalAlignment="Center" IsReadOnly="True" Height="134" Margin="0,187,0,0" VerticalAlignment="Top" Width="780" AutoGenerateColumns="False" RenderTransformOrigin="0.492,-0.166" ItemsSource="{Binding ElementName=dataGridTextColumn, Mode=OneWay}" SelectionChanged="dsetUnitCluster_SelectionChanged">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Cluster ID" Width="*" Binding="{Binding clusterid}"/>
+                    <DataGridTextColumn Header="Cluster Name" Width="*" Binding ="{Binding clustername}"/>
+                    <DataGridTextColumn Header="Cost" Width="*" Binding ="{Binding cost}"/>
+                    <DataGridTextColumn Header="Description" Width="*" Binding ="{Binding description}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+            <TextBlock Text="Clusters for enrolment" TextAlignment="Center" HorizontalAlignment="Center" Margin="0,166,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.132,0.462" Width="496"/>
+            <DataGrid x:Name="dsetAssessments" HorizontalAlignment="Left" IsReadOnly="True" Height="134" Margin="294,368,0,0" VerticalAlignment="Top" Width="780" AutoGenerateColumns="False" RenderTransformOrigin="0.492,-0.166" ItemsSource="{Binding ElementName=dataGridTextColumn, Mode=OneWay}" SelectionChanged="dsetAssessment_SelectionChanged" >
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Assessment ID" Width="*" Binding ="{Binding assessmentid}"/>
+                    <DataGridTextColumn Header="Title" Width="*" Binding ="{Binding assessmenttitle}"/>
+                    <DataGridTextColumn Header="File Name" Width="*" Binding ="{Binding filename}"/>
+                    <DataGridTextColumn Header="Type" Width="*" Binding ="{Binding type}"/>
+                    <DataGridTextColumn Header="Description" Width="*" Binding ="{Binding description}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+            <Label Content="Assessments (Select Cluster above)" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="436,342,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.132,0.462" Width="496"/>
+            <DataGrid x:Name="dsetResources" HorizontalAlignment="Left" IsReadOnly="True" Height="134" Margin="294,748,0,0" VerticalAlignment="Top" Width="782" AutoGenerateColumns="False" RenderTransformOrigin="0.492,-0.166" ItemsSource="{Binding ElementName=dataGridTextColumn, Mode=OneWay}" >
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Resource ID" Width="*" Binding ="{Binding resourceid}"/>
+                    <DataGridTextColumn Header="Resource Title" Width="*" Binding ="{Binding resourcetitle}"/>
+                    <DataGridTextColumn Header="File Name" Width="*" Binding ="{Binding resourcefilename}"/>
+                    <DataGridTextColumn Header="Author ID" Width="*" Binding ="{Binding teachername}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+            <Label Content="Resources (Select cluster above)" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="436,717,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.132,0.462" Width="496"/>
+
+            <xctk:WatermarkTextBox x:Name ="updateSSubmissionFileName" Watermark="Submission File Name" Width="116" Height="23" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="627,530,0,0" />
+            <xctk:WatermarkTextBox x:Name ="updateSAssessmentID" IsReadOnly="True" Watermark="Select Assessment" Width="118" Height="23" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="498,530,0,0" />
+            <DataGrid x:Name="dsetSubmissions" HorizontalAlignment="Left" IsReadOnly="True" Height="134" Margin="294,578,0,0" VerticalAlignment="Top" Width="780" AutoGenerateColumns="False" RenderTransformOrigin="0.492,-0.166" ItemsSource="{Binding ElementName=dataGridTextColumn, Mode=OneWay}" >
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Assessment Title" Width="*" Binding ="{Binding assessmenttitle}"/>
+                    <DataGridTextColumn Header="Submission File Title" Width="*" Binding="{Binding submissionfilename}"/>
+                    <DataGridTextColumn Header="Completion Date" Width="*" Binding="{Binding completiondate}"/>
+                    <DataGridTextColumn Header="Due Date" Width="*" Binding="{Binding duedate}"/>
+                    <DataGridTextColumn Header="Marker" Width="*" Binding="{Binding teachername}"/>
+                    <DataGridTextColumn Header="Result" Width="*" Binding="{Binding result}"/>
+                    <DataGridTextColumn Header="Comments" Width="*" Binding="{Binding comments}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+            <Button x:Name="btnSubmitAssessment" Content="Submit assessment" HorizontalAlignment="Left" Margin="754,530,0,0" VerticalAlignment="Top" Width="118" Click="btnSubmitAssessment_Click" TabIndex="3" Height="23"/>
+            <Button x:Name="btnDownloadResource" Content="Download Resource" HorizontalAlignment="Left" Margin="912,887,0,0" VerticalAlignment="Top" Width="118" Click="btnDownloadResource_Click" TabIndex="3" Height="23"/>
+            <Button x:Name="btnBack" Content="Back" HorizontalAlignment="Left" Margin="11,22,0,0" VerticalAlignment="Top" Width="150" TabIndex="3" Click="btnLogOut_Click"/>
+
+        </Grid>
+    </ScrollViewer>
+</Window>

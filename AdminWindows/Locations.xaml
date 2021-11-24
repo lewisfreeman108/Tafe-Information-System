@@ -1,0 +1,45 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Tafe_System"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit" x:Class="Tafe_System.Locations"
+        mc:Ignorable="d"
+        Title="Locations" Height="509" Width="859">
+    <Grid Width="802">
+        <DataGrid x:Name="dsetLocations" HorizontalAlignment="Center" IsReadOnly="True" Height="239" Margin="0,86,0,0" VerticalAlignment="Top" Width="780" AutoGenerateColumns="False" RenderTransformOrigin="0.492,-0.166" ItemsSource="{Binding ElementName=dataGridTextColumn, Mode=OneWay}" SelectionChanged="dsetLocations_SelectionChanged">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Location" Width="*" Binding="{Binding locationname}"/>
+                <DataGridTextColumn Header="Street Address" Width="*" Binding="{Binding streetaddress}"/>
+                <DataGridTextColumn Header="Suburb" Width="*" Binding="{Binding suburb}"/>
+                <DataGridTextColumn Header="State" Width="*" Binding="{Binding state}"/>
+                <DataGridTextColumn Header="Postcode" Width="*" Binding="{Binding postcode}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Label Content="Locations" HorizontalContentAlignment="Center" HorizontalAlignment="Center" Margin="0,25,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.132,0.462" Width="496"/>
+        <Button x:Name="btnSearchLocations" Content="Search" HorizontalAlignment="Left" Margin="282,57,0,0" VerticalAlignment="Top" Width="76" Click="btnSearchLocations_Click" TabIndex="3"/>
+
+        <xctk:WatermarkTextBox x:Name ="addLStreetAddress" Watermark="Street Address" Width="117" Height="23" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="156,365,0,0" />
+        <xctk:WatermarkTextBox x:Name ="addLSuburb" Watermark="Suburb" Width="117" Height="23" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="278,365,0,0" />
+        <xctk:WatermarkTextBox x:Name ="addLLocationName" Watermark="Location Name" Width="117" Height="23" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="156,403,0,0" />
+        <Button x:Name="btnAddLocation" Content="Add" Width="74" Height="20" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="300,405,0,0" TabIndex="3" RenderTransformOrigin="0.523,1.926" Click="btnAddLocation_Click"/>
+        <xctk:WatermarkTextBox x:Name ="addLPostCode" Watermark="Postcode" Width="117" Height="23" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="400,365,0,0" MaxLength="4"/>
+        <Button x:Name="btnUpdateLocation" Content="Update" Width="74" Height="20" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="422,406,0,0" TabIndex="3" RenderTransformOrigin="0.523,1.926" Click="btnUpdateLocation_Click"/>
+        <ComboBox x:Name="addLState" Width="116" Height="23" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="523,365,0,0" SelectedValuePath="Content">
+            <ComboBoxItem IsSelected="True" Content="NSW"/>
+            <ComboBoxItem Content="NT"/>
+            <ComboBoxItem Content="Qld"/>
+            <ComboBoxItem Content="SA"/>
+            <ComboBoxItem Content="WA"/>
+            <ComboBoxItem Content="Tas"/>
+            <ComboBoxItem Content="Vic"/>
+        </ComboBox>
+        <Label Content="Add Location" HorizontalContentAlignment="Center" HorizontalAlignment="Center" Margin="0,334,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.132,0.462" Width="496"/>
+        <Button x:Name="btnRemoveLocation" Content="Remove" Width="74" Height="23" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="544,405,0,0" TabIndex="3" RenderTransformOrigin="0.523,1.926" Click="btnRemoveLocation_Click"/>
+        <Button x:Name="btnSearchAllLocations" Content="All Locations" HorizontalAlignment="Left" Margin="384,57,0,0" VerticalAlignment="Top" Width="96" Click="btnSearchAllLocations_Click" TabIndex="3" Height="20"/>
+        <xctk:WatermarkTextBox x:Name ="txtBoxSearchLocation" Watermark="Search For Location By Name" Width="243" Height="23" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="11,56,0,0" />
+        <Button x:Name="btnMainMenu" Content="Main Menu" HorizontalAlignment="Left" Margin="10,23,0,0" VerticalAlignment="Top" Width="150" TabIndex="3" Click="btnLogOut_Click"/>
+
+    </Grid>
+</Window>

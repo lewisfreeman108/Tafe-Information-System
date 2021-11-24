@@ -1,0 +1,89 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Tafe_System"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit" x:Class="Tafe_System.Submissions"
+        mc:Ignorable="d"
+        Title="Submissions" Height="1175" Width="859">
+    <ScrollViewer Margin="5,5,0,5" CanContentScroll="False"
+              HorizontalScrollBarVisibility="Auto">
+        <Grid Width="802">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="43*"/>
+                <RowDefinition Height="1384*"/>
+            </Grid.RowDefinitions>
+            <DataGrid x:Name="dsetTimetableItem" HorizontalAlignment="Center" IsReadOnly="True" Height="134" Margin="0,364,0,0" VerticalAlignment="Top" Width="780" AutoGenerateColumns="False" RenderTransformOrigin="0.492,-0.166" ItemsSource="{Binding ElementName=dataGridTextColumn, Mode=OneWay}" SelectionChanged="dsetTimetableItem_SelectionChanged" Grid.Row="1">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Offering ID" Width=".6*" Binding="{Binding timetableid}"/>
+                    <DataGridTextColumn Header="Cluster ID" Width="2*" Binding ="{Binding courseunitclusterid}"/>
+                    <DataGridTextColumn Header="Teacher ID" Width="*" Binding="{Binding teacherid}"/>
+                    <DataGridTextColumn Header="Building" Width=".5*" Binding="{Binding building}"/>
+                    <DataGridTextColumn Header="Room" Width=".5*" Binding="{Binding room}"/>
+                    <DataGridTextColumn Header="Start Time" Width=".6*" Binding="{Binding starttime}"/>
+                    <DataGridTextColumn Header="End Time" Width=".6*" Binding="{Binding endtime}"/>
+                    <DataGridTextColumn Header="Day Running" Width=".6*" Binding="{Binding dayrunning}"/>
+
+                </DataGrid.Columns>
+            </DataGrid>
+            <Label Content="Timetable Item (Select offering above)" HorizontalContentAlignment="Center" HorizontalAlignment="Center" Margin="0,332,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.132,0.462" Width="496" Height="27" Grid.Row="1"/>
+            <DataGrid x:Name="dsetStudents" HorizontalAlignment="Center" IsReadOnly="True" Height="134" Margin="0,530,0,0" VerticalAlignment="Top" Width="780" AutoGenerateColumns="False" RenderTransformOrigin="0.492,-0.166" ItemsSource="{Binding ElementName=dataGridTextColumn, Mode=OneWay}" SelectionChanged="dsetStudents_SelectionChanged" Grid.Row="1">
+                <DataGrid.Columns>
+                    <DataGridTextColumn x:Name="dataGridTextColumn" Header="Student ID" Width="*" Binding="{Binding studentid}"/>
+                    <DataGridTextColumn Header="Name" Width="*" Binding ="{Binding name}"/>
+                    <DataGridTextColumn Header="Email" Width="*" Binding="{Binding email}"/>
+                    <DataGridTextColumn Header="Mobile" Width="*" Binding="{Binding mobile}"/>
+                    <DataGridTextColumn Header="Address" Width="*" Binding="{Binding address}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+            <Label Content="Submissions (Select Student and Timetable Item Above)" HorizontalContentAlignment="Center" HorizontalAlignment="Center" Margin="0,672,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.132,0.462" Width="496" Height="27" Grid.Row="1"/>
+            <DataGrid x:Name="dsetSubmissions" HorizontalAlignment="Center" IsReadOnly="True" Height="134" Margin="0,699,0,0" VerticalAlignment="Top" Width="780" AutoGenerateColumns="False" RenderTransformOrigin="0.492,-0.166" ItemsSource="{Binding ElementName=dataGridTextColumn, Mode=OneWay}" SelectionChanged="dsetSubmissions_SelectionChanged" Grid.Row="1">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Submission ID" Width=".5*" Binding ="{Binding submissionid}"/>
+                    <DataGridTextColumn Header="Assessment Title" Width="*" Binding ="{Binding assessmenttitle}"/>
+                    <DataGridTextColumn Header="Submission File Title" Width="*" Binding="{Binding submissionfilename}"/>
+                    <DataGridTextColumn Header="Completion Date" Width=".5*" Binding="{Binding completiondate}"/>
+                    <DataGridTextColumn Header="Due Date" Width=".5*" Binding="{Binding duedate}"/>
+                    <DataGridTextColumn Header="Marker" Width=".5*" Binding="{Binding teachermarkingid}"/>
+                    <DataGridTextColumn Header="Result" Width=".5*" Binding="{Binding result}"/>
+                    <DataGridTextColumn Header="Comments" Width="*" Binding="{Binding comments}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+            <Label Content="Students (Select Offering above)" HorizontalContentAlignment="Center" HorizontalAlignment="Center" Margin="0,498,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.132,0.462" Width="496" Height="27" Grid.Row="1"/>
+            <ComboBox x:Name="updateSResult" Width="117" Height="23" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="405,882,0,0" SelectedValuePath="Content" Grid.Row="1">
+                <ComboBoxItem IsSelected="True" Content="Unsubmitted"/>
+                <ComboBoxItem Content="Submitted"/>
+                <ComboBoxItem Content="Unsatisfactory"/>
+                <ComboBoxItem Content="Satisfactory"/>
+            </ComboBox>
+            <Label Width="496" VerticalAlignment="Top" RenderTransformOrigin="-0.132,0.462" HorizontalContentAlignment="Center" HorizontalAlignment="Center" Content="Update Student Submission Result (Select Submission above)" Height="26" Margin="0,851,0,0" Grid.Row="1"/>
+            <Button x:Name="btnUpdateSubmission" Content="Update" HorizontalAlignment="Left" Margin="160,1028,0,0" VerticalAlignment="Top" Width="74" TabIndex="3" RenderTransformOrigin="0.5,0.5" Click="btnUpdateSubmission_Click" Grid.Row="1" />
+            <xctk:WatermarkTextBox x:Name ="updateSComments" Watermark="Comments" TextWrapping="Wrap" AcceptsReturn="True" MaxLength="300" Width="486" Height="111" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="160,911,0,0" Grid.Row="1"/>
+            <xctk:WatermarkTextBox x:Name ="updateSSubmissionID" Watermark="Submission ID" Width="118" Height="23" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="258,882,0,0" Grid.Row="1" />
+            <Label Content="Offerings" HorizontalContentAlignment="Center" HorizontalAlignment="Center" Margin="0,30,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.132,0.462" Width="496" Grid.RowSpan="2"/>
+            <DataGrid x:Name="dsetOfferings" HorizontalAlignment="Center" IsReadOnly="True" Height="239" Margin="0,88,0,0" VerticalAlignment="Top" Width="780" AutoGenerateColumns="False" RenderTransformOrigin="0.492,-0.166" ItemsSource="{Binding ElementName=dataGridTextColumn, Mode=OneWay}" SelectionChanged="dsetOfferings_SelectionChanged" Grid.Row="1">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Offering ID" Width=".6*" Binding="{Binding offeringid}"/>
+                    <DataGridTextColumn Header="Location Name" Width="2*" Binding ="{Binding locationname}"/>
+                    <DataGridTextColumn Header="Offering Type" Width="*" Binding="{Binding offeringtype}"/>
+                    <DataGridTextColumn Header="Year" Width=".5*" Binding="{Binding year}"/>
+                    <DataGridTextColumn Header="Semester" Width=".5*" Binding="{Binding semester}"/>
+                    <DataGridTextColumn Header="Start Date" Width=".6*" Binding="{Binding startdate}"/>
+                    <DataGridTextColumn Header="End Date" Width=".6*" Binding="{Binding enddate}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+            <Button x:Name="btnSearchWithFilters" Content="Search with filters" HorizontalAlignment="Left" Margin="434,39,0,0" VerticalAlignment="Top" Width="130" Click="btnSearchWithFilters_Click" TabIndex="3" Grid.Row="1"/>
+            <xctk:WatermarkTextBox x:Name ="txtBoxSearchByCourse" Watermark="Course ID" Width="243" Height="23" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="11,22,0,0" Grid.Row="1" />
+            <xctk:WatermarkTextBox x:Name ="txtBoxSearchByLocation" Watermark="Location name" Width="243" Height="24" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,53,0,0" Grid.Row="1" />
+            <ComboBox x:Name="searchSemester" Width="116" Height="20" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="285,24,0,0" SelectedValuePath="Content" Grid.Row="1">
+                <ComboBoxItem IsSelected="True" Content="Any Semester"/>
+                <ComboBoxItem Content="Semester 1"/>
+                <ComboBoxItem Content="Semester 2"/>
+            </ComboBox>
+            <Button x:Name="btnSearchAllOfferings" Content="All Offerings" HorizontalAlignment="Left" Margin="612,40,0,0" VerticalAlignment="Top" Width="141" Click="btnSearchAllOfferings_Click" TabIndex="3" Grid.Row="1"/>
+            <xctk:WatermarkTextBox x:Name ="txtBoxSearchYear" MaxLength="4" Watermark="Year yyyy" Width="116" Height="24" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="285,53,0,0" Grid.Row="1" />
+            <Button x:Name="btnBack" Content="Back" HorizontalAlignment="Left" Margin="11,23,0,0" VerticalAlignment="Top" Width="150" TabIndex="3" Click="btnLogOut_Click"/>
+        </Grid>
+    </ScrollViewer>
+</Window>
