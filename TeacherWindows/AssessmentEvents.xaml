@@ -25,7 +25,7 @@
                 </DataGrid.Columns>
             </DataGrid>
             <xctk:WatermarkTextBox x:Name ="createAEDueDate" Watermark="Due Date yyyy-mm-dd"  Width="118" Height="23" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="417,254,0,0" MaxLength="10"/>
-            <Label Width="496" VerticalAlignment="Top" RenderTransformOrigin="-0.132,0.462" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Content="Create an Assessment Event for Students in Offering" Height="26" Margin="157,223,0,0"/>
+            <Label Width="496" VerticalAlignment="Top" RenderTransformOrigin="-0.132,0.462" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Content="Update an Assessment Event for Students in Offering" Height="26" Margin="157,223,0,0"/>
             <xctk:WatermarkTextBox x:Name ="createAEAssessmentID" Watermark="Select Assessment" IsReadOnly="true" Width="117" Height="23" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="275,254,0,0" />
             <Button x:Name="btnUpdateAssessmentEvent" Content="Update" HorizontalAlignment="Left" Margin="367,291,0,0" VerticalAlignment="Top" Width="75" TabIndex="3" RenderTransformOrigin="0.5,0.5" Click="btnUpdateAssessmentEvent_Click" />
 

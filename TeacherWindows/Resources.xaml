@@ -20,16 +20,17 @@
             <Button x:Name="btnRemoveResource" Content="Remove" Width="74" Height="20" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="401,312,0,0" TabIndex="3" RenderTransformOrigin="0.5,0.5" Click="btnRemoveResource_Click"/>
             <DataGrid x:Name="dsetResources" HorizontalAlignment="Center" IsReadOnly="True" Height="134" Margin="0,78,0,0" VerticalAlignment="Top" Width="780" AutoGenerateColumns="False" RenderTransformOrigin="0.492,-0.166" ItemsSource="{Binding ElementName=dataGridTextColumn, Mode=OneWay}" SelectionChanged="dsetResources_SelectionChanged" >
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="UnitCluster" Width="*" Binding ="{Binding clustername}"/>
                     <DataGridTextColumn Header="Resource ID" Width="*" Binding ="{Binding resourceid}"/>
+                    <DataGridTextColumn Header="Timetable ID" Width="*" Binding ="{Binding timetableid}"/>
+                    <DataGridTextColumn Header="UnitCluster" Width="*" Binding ="{Binding clustername}"/>
                     <DataGridTextColumn Header="Resource Title" Width="*" Binding ="{Binding resourcetitle}"/>
                     <DataGridTextColumn Header="File Name" Width="*" Binding ="{Binding resourcefilename}"/>
                 </DataGrid.Columns>
             </DataGrid>
-            <TextBlock TextAlignment="Center" HorizontalAlignment="Center" Margin="0,10,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.132,0.462" Width="496" Height="49"><Run Text="Resources"/><LineBreak/> Searching with no CourseUnitClusterID will return all resources you have uploaded <Span/></TextBlock>
+            <TextBlock TextAlignment="Center" HorizontalAlignment="Center" Margin="0,10,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.132,0.462" Width="496" Height="49"><Run Text="Resources"/><LineBreak/> Searching with no Timetable ID will return all resources you have uploaded <Span/></TextBlock>
             <Button x:Name="btnSearchResources" Content="Search" HorizontalAlignment="Left" Margin="425,53,0,0" VerticalAlignment="Top" Width="96" TabIndex="3" Click="btnSearchResources_Click"/>
-            <xctk:WatermarkTextBox x:Name ="addRCourseUnitClusterID" Watermark="CourseUnitClusterID" Width="116" Height="22" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="380,283,0,0" />
-            <xctk:WatermarkTextBox x:Name ="txtboxSearchResources" Watermark="CourseUnitClusterID" Width="136" Height="23" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="277,51,0,0" />
+            <xctk:WatermarkTextBox x:Name ="addRTimetableID" Watermark="Timetable ID" Width="116" Height="22" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="380,283,0,0" />
+            <xctk:WatermarkTextBox x:Name ="txtboxSearchResources" Watermark="Timetable ID" Width="136" Height="23" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="277,51,0,0" />
             <Button x:Name="btnBack" Content="Back" HorizontalAlignment="Left" Margin="11,23,0,0" VerticalAlignment="Top" Width="150" TabIndex="3" Click="btnLogOut_Click"/>
 
         </Grid>

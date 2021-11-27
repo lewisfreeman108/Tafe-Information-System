@@ -162,7 +162,7 @@ namespace Tafe_System
         {
             if (ValidationHelper.ValidateNoIntegers("First name", addSFirstName.Text) && ValidationHelper.ValidateNoIntegers("Surname", addSSurname.Text) && ValidationHelper.ValidateIsEmail(addSEmail.Text) && ValidationHelper.ValidateIsMobile("Mobile number", addSMobile.Text) && ValidationHelper.ValidateNoIntegers("Suburb", addSSuburb.Text) && ValidationHelper.ValidateIsPostCode("Postcode", addSPostcode.Text))
             {
-                if (databaseConnection.AddUserToDatabase(studentParameters, addSPassword.Text, addStudentTextBoxElements, addStudentComboBoxElementsValue, "S", "Successfully added student", "tsp_AddStudent"))
+                if (databaseConnection.AddUserToDatabase(studentParameters, addSPassword.Text, addStudentTextBoxElements, addStudentComboBoxElementsValue, null, "S", "Successfully added student", "tsp_AddStudent"))
                 {
                     addSPassword.Text = "";
                 }

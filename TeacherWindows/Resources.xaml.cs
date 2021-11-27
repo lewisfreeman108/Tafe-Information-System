@@ -29,12 +29,18 @@ namespace Tafe_System.TeacherWindows
             resourceParameters.AddParameter("@resourcetitle", SqlDbType.VarChar, 150);
             resourceParameters.AddParameter("@resourcefilename", SqlDbType.VarChar, 150);
             resourceParameters.AddParameter("@authorid", SqlDbType.Int);
-            addResourceTextBoxElements = new WatermarkTextBox[] { addRResourceFileName, addRResourceTitle, addRCourseUnitClusterID };
+            resourceParameters.AddParameter("@timetableid", SqlDbType.Int);
+
+            searchResourceParameters.AddParameter("@teacherid", SqlDbType.Int);
+            searchResourceParameters.AddParameter("@timetableid", SqlDbType.Int);
+
+            addResourceTextBoxElements = new WatermarkTextBox[] { addRResourceTitle, addRResourceFileName, addRTimetableID };
         }
 
         public void setTeacher(string teacherID)
         {
             searchResourceParameters["@teacherid"].value = teacherID;
+            resourceParameters["@authorid"].value = teacherID;
             teacherPrimaryKey.Value.value = teacherID;
         }
 
@@ -45,7 +51,7 @@ namespace Tafe_System.TeacherWindows
 
         private void btnAddResource_Click(object sender, RoutedEventArgs e)
         {
-            if (ValidationHelper.ValidateIsFileName("Resource ", addRResourceFileName.Text) && ValidationHelper.ValidateOnlyIntegers("CourseUnitCluster ID", addRCourseUnitClusterID.Text))
+            if (ValidationHelper.ValidateIsFileName("Resource ", addRResourceFileName.Text) && ValidationHelper.ValidateOnlyIntegers("Timetable ID", addRTimetableID.Text))
             {
                 databaseConnection.AddToDatabase(resourceParameters, addResourceTextBoxElements, null, null, null, "R", "Successfully added resource", "tsp_AddResource");
             }
@@ -53,7 +59,7 @@ namespace Tafe_System.TeacherWindows
 
         private void btnUpdateResource_Click(object sender, RoutedEventArgs e)
         {
-            if (ValidationHelper.ValidateIsFileName("Resource ", addRResourceFileName.Text) && ValidationHelper.ValidateOnlyIntegers("CourseUnitCluster ID", addRCourseUnitClusterID.Text))
+            if (ValidationHelper.ValidateIsFileName("Resource ", addRResourceFileName.Text) && ValidationHelper.ValidateOnlyIntegers("Timetable ID", addRTimetableID.Text))
             {
                 databaseConnection.UpdateDatabase("tsp_UpdateResourceDetails", "tsp_GetResourceDetails", resourcePrimaryKey, resourceParameters, updateRResourceID, addResourceTextBoxElements, null, null, null, "R", "Successfully updated resource");
             }
@@ -77,12 +83,12 @@ namespace Tafe_System.TeacherWindows
         {
             if (string.IsNullOrWhiteSpace(txtboxSearchResources.Text))
             {
-                databaseConnection.GetTableFromDatabase("tsp_GetAllTeacherResources", teacherPrimaryKey);
+                dsetResources.ItemsSource = databaseConnection.GetTableFromDatabase("tsp_GetAllTeacherResources", teacherPrimaryKey).DefaultView; 
             }
             else
             {
-                searchResourceParameters["@courseunitclusterid"].value = txtboxSearchResources.Text;
-                databaseConnection.GetTableFromDatabase("tsp_GetTeacherResourcesForCourseUnitCluster", searchResourceParameters);
+                searchResourceParameters["@timetableid"].value = txtboxSearchResources.Text;
+                dsetResources.ItemsSource = databaseConnection.GetTableFromDatabase("tsp_GetTeachersResourcesForTimetableItem", searchResourceParameters).DefaultView;
             }
         }
 

@@ -6,37 +6,27 @@ namespace Tafe_System
     {
         public void AddParameter(string key, System.Data.SqlDbType type, int length)
         {
-            SqlParameterDetails parameterDetails = new SqlParameterDetails();
-            parameterDetails.value = "";
-            parameterDetails.type = type;
-            parameterDetails.length = length;
+            SqlParameterDetails parameterDetails = new SqlParameterDetails(type, length);
             this.Add(key, parameterDetails);
         }
 
         public void AddParameter(string key, System.Data.SqlDbType type)
         {
-            SqlParameterDetails parameterDetails = new SqlParameterDetails();
-            parameterDetails.value = "";
-            parameterDetails.type = type;
-            parameterDetails.length = null;
+            SqlParameterDetails parameterDetails = new SqlParameterDetails(type, null);
             this.Add(key, parameterDetails);
         }
 
         public void AddParameter(string key, string value, System.Data.SqlDbType type, int length)
         {
-            SqlParameterDetails parameterDetails = new SqlParameterDetails();
+            SqlParameterDetails parameterDetails = new SqlParameterDetails(type, length);
             parameterDetails.value = value;
-            parameterDetails.type = type;
-            parameterDetails.length = length;
             this.Add(key, parameterDetails);
         }
 
         public void AddParameter(string key, string value, System.Data.SqlDbType type)
         {
-            SqlParameterDetails parameterDetails = new SqlParameterDetails();
+            SqlParameterDetails parameterDetails = new SqlParameterDetails(type, null);
             parameterDetails.value = value;
-            parameterDetails.type = type;
-            parameterDetails.length = null;
             this.Add(key, parameterDetails);
         }
 

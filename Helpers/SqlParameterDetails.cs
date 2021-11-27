@@ -2,13 +2,11 @@
 
 namespace Tafe_System
 {
-    public class SqlParameterDetails
+    public class SqlParameterDetails//Not a struct because values are mutable and intended to be after initialization 
     {
         public string value;
-        public System.Data.SqlDbType type;
+        public SqlDbType type;
         public int? length;
-
-        public SqlParameterDetails() { }
 
         public SqlParameterDetails(SqlDbType type, int? length)
         {

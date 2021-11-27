@@ -32,7 +32,7 @@ namespace Tafe_System
 
         private readonly List<SqlParameter> searchOfferingFilter = new List<SqlParameter>();
 
-        private KeyValuePair<string, SqlParameterDetails> timetableitemPrimaryKey = new KeyValuePair<string, SqlParameterDetails>("@timetableitemid", new SqlParameterDetails(SqlDbType.Int, null));
+        private KeyValuePair<string, SqlParameterDetails> timetableitemPrimaryKey = new KeyValuePair<string, SqlParameterDetails>("@timetableid", new SqlParameterDetails(SqlDbType.Int, null));
         private readonly SqlParameterDictionary timetableParameters = new SqlParameterDictionary();
         private readonly WatermarkTextBox[] addTimetableItemTextboxElements;
         private readonly ComboBox[] addTimetableItemComboBoxElementsValue;
@@ -163,6 +163,7 @@ namespace Tafe_System
         private void btnSearchAllOfferings_Click(object sender, RoutedEventArgs e)
         {
             baseSearchOfferingMethods.SearchAllOfferings(dsetOfferings);
+            dsetTimetableItem.ItemsSource = null;
         }
 
         private void btnSearchWithFilters_Click(object sender, RoutedEventArgs e)
@@ -177,6 +178,7 @@ namespace Tafe_System
             if (dataRowView != null)
             {
                 timetableParameters["@offeringid"].value = dataRowView.Row[0].ToString();
+
                 if (string.Equals(dataRowView.Row[1].ToString(), "Online"))
                 {
                     addTBuilding.Text = "NULLVALUE";

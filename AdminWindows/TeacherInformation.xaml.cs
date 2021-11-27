@@ -63,9 +63,8 @@ namespace Tafe_System
             SearchTeachers();
         }
 
-        private void SearchTeachers()
+        private void SearchAllTeacherFilters()
         {
-
             searchTeacherFilters.Clear();
 
             if (!string.IsNullOrWhiteSpace(txtBoxSearchFirstName.Text))
@@ -94,6 +93,11 @@ namespace Tafe_System
             {
                 searchTeacherFilters.Add(new SqlParameter("@employmenttype", DBNull.Value));
             }
+        }
+
+        private void SearchTeachers()
+        {
+            SearchAllTeacherFilters();
 
             if (cmbBoxSemester.SelectedIndex != 0)
             {
@@ -133,7 +137,7 @@ namespace Tafe_System
 
         private void btnAddTeacher_Click(object sender, RoutedEventArgs e)
         {
-            if (databaseConnection.AddUserToDatabase(teacherParameters, addTPassword.Text, addTeacherTextBoxElements, addTeacherComboBoxElementsValue, "T", "Successfully added teacher", "tsp_AddTeacher"))
+            if (databaseConnection.AddUserToDatabase(teacherParameters, addTPassword.Text, addTeacherTextBoxElements, addTeacherComboBoxElementsValue, addTeacherCheckBoxElements, "T", "Successfully added teacher", "tsp_AddTeacher"))
             {
                 addTPassword.Text = "";
             }
@@ -165,6 +169,18 @@ namespace Tafe_System
             this.Hide();
             Reset();
             mainMenu.Show();
+        }
+
+        private void btnSearchAllTeachers_Click(object sender, RoutedEventArgs e)
+        {
+            SearchAllTeacherFilters();
+            dsetAllTeachers.ItemsSource = databaseConnection.GetAppropriateDataTableFromStoredProcedure("tsp_SearchAllTeachers", searchTeacherFilters).DefaultView;
+        }
+
+        private void cmbBoxLocationSearchType_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (cmbBoxLocationSearchType.SelectedIndex == 0) txtBoxSearchLocation.Text = "";
+            txtBoxSearchLocation.Visibility = cmbBoxLocationSearchType.SelectedIndex == 0 ? Visibility.Hidden : Visibility.Visible;
         }
     }
 }

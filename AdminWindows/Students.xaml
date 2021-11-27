@@ -6,12 +6,12 @@
         xmlns:extToolkit="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
-        Title="Students" Height="1327" Width="859">
+        Title="Students" Height="1327" Width="1128">
     <ScrollViewer Margin="5,5,0,5" CanContentScroll="False"
               HorizontalScrollBarVisibility="Auto">
-        <Grid Width="802" HorizontalAlignment="Center">
+        <Grid Width="1039">
             <Label Content="All Students" HorizontalContentAlignment="Center" HorizontalAlignment="Center" Margin="0,12,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.132,0.462" Width="496"/>
-            <DataGrid x:Name="dsetEnrolments" HorizontalAlignment="Center" IsReadOnly="True" Height="239" VerticalAlignment="Top" Width="802" AutoGenerateColumns="False" RenderTransformOrigin="0.492,-0.166" ItemsSource="{Binding ElementName=dataGridTextColumn, Mode=OneWay}" SelectionChanged="dsetEnrolments_SelectionChanged" Margin="0,504,0,0">
+            <DataGrid x:Name="dsetEnrolments" HorizontalAlignment="Center" IsReadOnly="True" Height="239" VerticalAlignment="Top" Width="1018" AutoGenerateColumns="False" RenderTransformOrigin="0.492,-0.166" ItemsSource="{Binding ElementName=dataGridTextColumn, Mode=OneWay}" SelectionChanged="dsetEnrolments_SelectionChanged" Margin="0,504,0,0">
                 <DataGrid.Columns>
                     <DataGridTextColumn x:Name="dataGridTextColumn1" Header= "Enrolment ID" Width=".5*" Binding="{Binding enrolmentid}"/>
                     <DataGridTextColumn Header="Student" Width="*" Binding ="{Binding studentname}"/>
@@ -23,16 +23,16 @@
                     <DataGridTextColumn Header="Payment Method" Width="*" Binding="{Binding paymentmethod}"/>
                     <DataGridTextColumn Header="Amount Paid" Width="*" Binding="{Binding amountpaid}"/>
                     <DataGridTextColumn Header="Amount Outstanding" Width="*" Binding="{Binding amountoutstanding}"/>
-                    <DataGridTextColumn Header="Enrolment Date" Width="*" Binding="{Binding enrolmentdate}"/>
+                    <DataGridTextColumn Header="Date Of Enrolment" Width="*" Binding="{Binding enrolmentdate}"/>
                     <DataGridTextColumn Header="Type" Width="*" Binding="{Binding offeringtype}"/>
                     <DataGridTextColumn Header="Start Date" Width="*" Binding="{Binding startdate}"/>
                     <DataGridTextColumn Header="End Date" Width="*" Binding="{Binding enddate}"/>
                 </DataGrid.Columns>
             </DataGrid>
             <Label Content="Enrolments (Search below or select student above)" HorizontalContentAlignment="Center" HorizontalAlignment="Center" Margin="0,385,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.132,0.462" Width="496"/>
-            <Button x:Name="btnSearchEnrolments" Content="Search" HorizontalAlignment="Left" Margin="670,461,0,0" VerticalAlignment="Top" Width="76" Click="btnSearchEnrolment_Click" TabIndex="3"/>
-            <CheckBox x:Name = "chkBoxOutstandingPayment" Content = "Oustanding payment" Margin="640,422,26,860"/>
-            <ComboBox x:Name="cmbBoxSemester" Width="116" Height="23" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="245,459,0,0" SelectedValuePath="Content">
+            <Button x:Name="btnSearchEnrolments" Content="Search" HorizontalAlignment="Left" Margin="641,459,0,0" VerticalAlignment="Top" Width="76" Click="btnSearchEnrolment_Click" TabIndex="3"/>
+            <CheckBox x:Name = "chkBoxOutstandingPayment" Content = "Oustanding payment" Margin="759,421,-93,861"/>
+            <ComboBox x:Name="cmbBoxSemester" Width="116" Height="23" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="295,458,0,0" SelectedValuePath="Content">
                 <ComboBoxItem IsSelected="True" Content="Any Semester"/>
                 <ComboBoxItem Content="Semester 1"/>
                 <ComboBoxItem Content="Semester 2"/>
@@ -72,16 +72,16 @@
             <Button x:Name="btnUpdateStudent" Content="Update" HorizontalAlignment="Left" Margin="300,920,0,0" VerticalAlignment="Top" Width="74" TabIndex="3" Click="btnUpdateStudent_Click" RenderTransformOrigin="0.523,1.926"/>
             <Button x:Name="btnRemoveEnrolment" Content="Remove" Width="74" Height="20" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="484,1066,0,0" TabIndex="3" RenderTransformOrigin="0.523,1.926" Click="btnRemoveEnrolment_Click"/>
             <Button x:Name="btnRemoveStudent" Content="Remove" HorizontalAlignment="Left" Margin="420,920,0,0" VerticalAlignment="Top" Width="76" TabIndex="3" Click="btnRemoveStudent_Click" RenderTransformOrigin="0.523,1.926"/>
-            <ComboBox x:Name="cmbBoxMode" Width="158" Height="23" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="314,418,0,0">
+            <ComboBox x:Name="cmbBoxMode" Width="158" Height="23" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="433,417,0,0">
 
                 <ComboBoxItem IsSelected ="True" Content="On Campus and Online"/>
                 <ComboBoxItem Content="On Campus"/>
                 <ComboBoxItem Content="Online"/>
             </ComboBox>
-            <extToolkit:WatermarkTextBox x:Name ="txtBoxSearchEnrolmentStudentID" Watermark="Student ID" Width="116" Height="23" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="44,418,0,0" />
-            <extToolkit:WatermarkTextBox x:Name ="txtBoxSearchEnrolmentCourseID" Watermark="Course ID" Width="116" Height="23" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="176,418,0,0" />
-            <extToolkit:WatermarkTextBox x:Name ="txtBoxSearchEnrolmentLocationName" Watermark="Location Name" Width="116" Height="23" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="502,418,0,0" />
-            <extToolkit:WatermarkTextBox x:Name ="txtBoxSearchEnrolmentYear" Watermark="Year" MaxLength="4" Width="116" Height="23" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="428,460,0,0" />
+            <extToolkit:WatermarkTextBox x:Name ="txtBoxSearchEnrolmentStudentID" Watermark="Student ID" Width="116" Height="23" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="163,417,0,0" />
+            <extToolkit:WatermarkTextBox x:Name ="txtBoxSearchEnrolmentCourseID" Watermark="Course ID" Width="116" Height="23" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="295,417,0,0" />
+            <extToolkit:WatermarkTextBox x:Name ="txtBoxSearchEnrolmentLocationName" Watermark="Location Name" Width="116" Height="23" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="621,417,0,0" />
+            <extToolkit:WatermarkTextBox x:Name ="txtBoxSearchEnrolmentYear" Watermark="Year" MaxLength="4" Width="116" Height="23" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,458,0,0" />
             <DataGrid x:Name="dsetStudents" HorizontalAlignment="Center" IsReadOnly="True" Height="239" Margin="0,148,0,0" VerticalAlignment="Top" Width="780" AutoGenerateColumns="False" RenderTransformOrigin="0.492,-0.166" ItemsSource="{Binding ElementName=dataGridTextColumn, Mode=OneWay}" SelectionChanged="dsetStudents_SelectionChanged">
                 <DataGrid.Columns>
                     <DataGridTextColumn x:Name="dataGridTextColumn" Header="Student ID" Width="*" Binding="{Binding studentid}"/>
@@ -91,20 +91,20 @@
                     <DataGridTextColumn Header="Address" Width="*" Binding="{Binding address}"/>
                 </DataGrid.Columns>
             </DataGrid>
-            <Button x:Name="btnSearchStudentName" Content="Search" HorizontalAlignment="Left" Margin="277,81,0,0" VerticalAlignment="Top" Width="75" Click="btnSearchStudentName_Click" TabIndex="3"/>
-            <Button x:Name="btnSearchStudentID" Content="Search" HorizontalAlignment="Left" Margin="277,112,0,0" VerticalAlignment="Top" Width="75" TabIndex="3" Click="btnSearchStudentID_Click"/>
-            <extToolkit:WatermarkTextBox x:Name ="txtBoxSearchByName" Watermark="Search for a student by their name" Width="243" Height="23" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="11,79,0,0" />
-            <extToolkit:WatermarkTextBox x:Name ="txtBoxSearchByID" Watermark="Search for a student by their ID" Width="243" Height="24" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,110,0,0" />
+            <Button x:Name="btnSearchStudentName" Content="Search" HorizontalAlignment="Left" Margin="396,80,0,0" VerticalAlignment="Top" Width="75" Click="btnSearchStudentName_Click" TabIndex="3"/>
+            <Button x:Name="btnSearchStudentID" Content="Search" HorizontalAlignment="Left" Margin="396,111,0,0" VerticalAlignment="Top" Width="75" TabIndex="3" Click="btnSearchStudentID_Click"/>
+            <extToolkit:WatermarkTextBox x:Name ="txtBoxSearchByName" Watermark="Search for a student by their name" Width="243" Height="23" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="130,78,0,0" />
+            <extToolkit:WatermarkTextBox x:Name ="txtBoxSearchByID" Watermark="Search for a student by their ID" Width="243" Height="24" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="129,109,0,0" />
             <ComboBox x:Name="searchType" Width="86" Height="20" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,40,0,0" SelectedValuePath="Content" SelectionChanged="searchType_SelectionChanged">
                 <ComboBoxItem IsSelected="True" Content="By Student"/>
                 <ComboBoxItem Content="By Course"/>
             </ComboBox>
-            <ComboBox x:Name="searchSemester" Width="116" Height="20" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="377,81,0,0" SelectedValuePath="Content">
+            <ComboBox x:Name="searchSemester" Width="116" Height="20" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="496,80,0,0" SelectedValuePath="Content">
                 <ComboBoxItem IsSelected="True" Content="Any Semester"/>
                 <ComboBoxItem Content="Semester 1"/>
                 <ComboBoxItem Content="Semester 2"/>
             </ComboBox>
-            <Button x:Name="btnSearchAllStudents" Content="All Students" HorizontalAlignment="Left" Margin="377,112,0,0" VerticalAlignment="Top" Width="116" Click="btnSearchAllStudents_Click" TabIndex="3"/>
+            <Button x:Name="btnSearchAllStudents" Content="All Students" HorizontalAlignment="Left" Margin="496,111,0,0" VerticalAlignment="Top" Width="116" Click="btnSearchAllStudents_Click" TabIndex="3"/>
             <extToolkit:WatermarkTextBox x:Name ="addEOfferingID" Watermark="Offering ID" Width="116" Height="23" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="398,990,0,0" />
             <Button x:Name="btnBack" Content="Back" HorizontalAlignment="Left" Margin="11,35,0,0" VerticalAlignment="Top" Width="150" TabIndex="3" Click="btnLogOut_Click"/>
         </Grid>

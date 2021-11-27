@@ -55,11 +55,11 @@ namespace Tafe_System
 
             string[] temp = text.Split("@");
 
-            if (temp.Length == 2 && temp[1].Contains(".com"))
+            if (temp.Length == 2 && temp[1].Contains("."))
             {
                 return true;
             }
-            MessageBox.Show("Email must be a valid email containing '@' and '.com'");
+            MessageBox.Show("Email must be a valid email containing '@' and '.'");
             return false;
         }
 

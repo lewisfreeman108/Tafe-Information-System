@@ -237,16 +237,15 @@ namespace Tafe_System
         {
             if (ValidationHelper.ValidateOnlyIntegers("Course ID", updateCCourseID.Text) && ValidationHelper.ValidateOnlyIntegers("Cluster ID", updateCLClusterID.Text))
             {
-                databaseConnection.CreateBridge("tsp_CreateCourseUnitClusterBridge", ref coursePrimaryKey, updateCCourseID, ref clusterPrimaryKey, updateCLClusterID);
+                databaseConnection.CreateOrRemoveBridge(true, "tsp_CreateCourseUnitClusterBridge", ref coursePrimaryKey, updateCCourseID, ref clusterPrimaryKey, updateCLClusterID);
             }
         }
-
 
         private void btnCreateUnitClusterUnitBridge_Click(object sender, RoutedEventArgs e)
         {
             if (ValidationHelper.ValidateOnlyIntegers("Cluster ID", updateCLClusterID.Text) && ValidationHelper.ValidateOnlyIntegers("Unit ID", updateUUnitID.Text))
             {
-                databaseConnection.CreateBridge("tsp_CreateUnitClusterUnitBridge", ref unitPrimaryKey, updateUUnitID, ref clusterPrimaryKey, updateCLClusterID);
+                databaseConnection.CreateOrRemoveBridge(true, "tsp_CreateUnitClusterUnitBridge", ref unitPrimaryKey, updateUUnitID, ref clusterPrimaryKey, updateCLClusterID);
             }
         }
 
@@ -254,11 +253,34 @@ namespace Tafe_System
         {
             if (ValidationHelper.ValidateOnlyIntegers("Assessment ID", updateAAssessmentID.Text) && ValidationHelper.ValidateOnlyIntegers("Unit ID", updateUUnitID.Text))
             {
-                databaseConnection.CreateBridge("tsp_CreateAssessmentUnitBridge", ref unitPrimaryKey, updateUUnitID, ref assessmentPrimaryKey, updateAAssessmentID);
+                databaseConnection.CreateOrRemoveBridge(true, "tsp_CreateAssessmentUnitBridge", ref unitPrimaryKey, updateUUnitID, ref assessmentPrimaryKey, updateAAssessmentID);
+            }
+        }
+
+        private void btnRemoveCourseUnitClusterBridge_Click(object sender, RoutedEventArgs e)
+        {
+            if (ValidationHelper.ValidateOnlyIntegers("Course ID", updateCCourseID.Text) && ValidationHelper.ValidateOnlyIntegers("Cluster ID", updateCLClusterID.Text))
+            {
+                databaseConnection.CreateOrRemoveBridge(false, "tsp_RemoveCourseUnitClusterBridge", ref coursePrimaryKey, updateCCourseID, ref clusterPrimaryKey, updateCLClusterID);
             }
         }
 
 
+        private void btnRemoveUnitClusterUnitBridge_Click(object sender, RoutedEventArgs e)
+        {
+            if (ValidationHelper.ValidateOnlyIntegers("Cluster ID", updateCLClusterID.Text) && ValidationHelper.ValidateOnlyIntegers("Unit ID", updateUUnitID.Text))
+            {
+                databaseConnection.CreateOrRemoveBridge(false, "tsp_RemoveUnitClusterUnitBridge", ref unitPrimaryKey, updateUUnitID, ref clusterPrimaryKey, updateCLClusterID);
+            }
+        }
+
+        private void btnRemoveAssessmentUnitBridge_Click(object sender, RoutedEventArgs e)
+        {
+            if (ValidationHelper.ValidateOnlyIntegers("Assessment ID", updateAAssessmentID.Text) && ValidationHelper.ValidateOnlyIntegers("Unit ID", updateUUnitID.Text))
+            {
+                databaseConnection.CreateOrRemoveBridge(false, "tsp_RemoveAssessmentUnitBridge", ref unitPrimaryKey, updateUUnitID, ref assessmentPrimaryKey, updateAAssessmentID);
+            }
+        }
 
         private void dsetCourses_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -299,9 +321,6 @@ namespace Tafe_System
             databaseConnection.AutoFillExistingElements(dsetAssessments, updateAAssessmentID, ref assessmentPrimaryKey, assessmentParameters, "tsp_GetAssessmentDetails", "A", addAssessmentTextBoxElements, addAssessmentComboBoxElementsValue, null, null);
         }
 
-
-
-
         private void btnRemoveCourse_Click(object sender, RoutedEventArgs e)
         {
             if (ValidationHelper.ValidateOnlyIntegers("Course ID", updateCCourseID.Text))
@@ -322,7 +341,7 @@ namespace Tafe_System
         {
             if (ValidationHelper.ValidateOnlyIntegers("Unit ID", updateUUnitID.Text))
             {
-                databaseConnection.RemoveRow("tsp_RemoveUnit", ref coursePrimaryKey, "Successfully removed unit", updateUUnitID, addUnitTextBoxElements, addUnitComboBoxElementsValue, null, null);
+                databaseConnection.RemoveRow("tsp_RemoveUnit", ref unitPrimaryKey, "Successfully removed unit", updateUUnitID, addUnitTextBoxElements, addUnitComboBoxElementsValue, null, null);
             }
         }
 
@@ -344,8 +363,15 @@ namespace Tafe_System
 
         private void btnSearchUnitsNoCourse_Click(object sender, RoutedEventArgs e)
         {
-            dsetUnitClusters.ItemsSource = databaseConnection.GetAppropriateDataTableFromStoredProcedure("tsp_GetAllUnitsThatHaveNoCourse").DefaultView;
-            unitTableLabel.Content = "Units assigned to no courses";
+            dsetUnits.ItemsSource = databaseConnection.GetAppropriateDataTableFromStoredProcedure("tsp_GetAllUnitsThatHaveNoCluster").DefaultView;
+            unitTableLabel.Content = "Units assigned to no clusters";
+        }
+
+        private void btnSearchAssessmentsNoUnits_Click(object sender, RoutedEventArgs e)
+        {
+            dsetAssessments.ItemsSource = databaseConnection.GetAppropriateDataTableFromStoredProcedure("tsp_GetAllAssessmentsThatHaveNoUnits").DefaultView;
+            assessmentTableLabel.Content = "Assessments assigned to no units";
+
         }
 
         private void btnLogOut_Click(object sender, RoutedEventArgs e)

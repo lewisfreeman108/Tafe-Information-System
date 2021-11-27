@@ -78,10 +78,10 @@
             <Button x:Name="btnFindBClassInformation" Content="Find Bridge ID" HorizontalAlignment="Left" Margin="350,1014,0,0" VerticalAlignment="Top" Width="94" TabIndex="3" RenderTransformOrigin="0.5,0.5" Click="btnFindBClassInformation_Click"/>
             <TextBlock x:Name ="FindBCourseUnitClusterID" Width="238" VerticalAlignment="Top" TextWrapping="WrapWithOverflow" IsEnabled="False" RenderTransformOrigin="-0.132,0.462" TextAlignment="Center" HorizontalAlignment="Left" Text="CourseUnitClusterID:" Height="40" Margin="284,969,0,0"/>
             <TextBlock Width="782" VerticalAlignment="Top" RenderTransformOrigin="-0.132,0.462" Margin="6,890,0,0" TextAlignment ="Center" Height="46" HorizontalAlignment="Left"><Run Text="Find Course Unit Cluster ID"/><LineBreak/><Run Text="Enter a cluster name AND a course name"/></TextBlock>
-            <DataGrid x:Name="dsetTimetableItem" HorizontalAlignment="Left" IsReadOnly="True" Height="176" Margin="8,544,0,0" VerticalAlignment="Top" Width="780" AutoGenerateColumns="False" RenderTransformOrigin="0.492,-0.166" ItemsSource="{Binding ElementName=dataGridTextColumn, Mode=OneWay}" SelectionChanged="dsetOfferings_SelectionChanged">
+            <DataGrid x:Name="dsetTimetableItem" HorizontalAlignment="Left" IsReadOnly="True" Height="176" Margin="8,544,0,0" VerticalAlignment="Top" Width="780" AutoGenerateColumns="False" RenderTransformOrigin="0.492,-0.166" ItemsSource="{Binding ElementName=dataGridTextColumn, Mode=OneWay}" SelectionChanged="dsetTimetableItem_SelectionChanged">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Timetable ID" Width=".6*" Binding="{Binding timetableid}"/>
-                    <DataGridTextColumn Header="Cluster ID" Width="2*" Binding ="{Binding courseunitclusterid}"/>
+                    <DataGridTextColumn Header="Cluster Name" Width="2*" Binding ="{Binding clustername}"/>
                     <DataGridTextColumn Header="Teacher ID" Width="*" Binding="{Binding teacherid}"/>
                     <DataGridTextColumn Header="Building" Width=".5*" Binding="{Binding building}"/>
                     <DataGridTextColumn Header="Room" Width=".5*" Binding="{Binding room}"/>

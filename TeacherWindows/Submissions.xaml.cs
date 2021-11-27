@@ -142,22 +142,31 @@ namespace Tafe_System
                 offeringPrimaryKey.Value.value = selectedCourseLocation;
                 dsetStudents.ItemsSource = databaseConnection.GetTableFromDatabase("tsp_GetStudentsFromOffering", offeringPrimaryKey).DefaultView;
             }
+            dsetSubmissions.ItemsSource = null;
+        }
+
+        private void OfferingSelectionChanged()
+        {
+            dsetStudents.ItemsSource = null;
+            dsetSubmissions.ItemsSource = null;
+            dsetTimetableItem.ItemsSource = null;
         }
 
         private void dsetOfferings_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             databaseConnection.NewDataGridSelection(dsetOfferings, dsetTimetableItem, 0, offeringPrimaryKey, "tsp_GetTimetableItemsForOffering");
             GetStudents();
-            dsetSubmissions.ItemsSource = null;
         }
 
         private void btnSearchWithFilters_Click(object sender, RoutedEventArgs e)
         {
+            OfferingSelectionChanged();
             baseSearchOfferingMethods.SearchOfferingsWithFilters(teacherPrimaryKey, dsetOfferings, searchOfferingParameters, searchSemester, txtBoxSearchByCourse, txtBoxSearchByLocation, txtBoxSearchYear);
         }
 
         private void btnSearchAllOfferings_Click(object sender, RoutedEventArgs e)
         {
+            OfferingSelectionChanged();
             baseSearchOfferingMethods.SearchAllOfferings(teacherPrimaryKey, dsetOfferings);
         }
 

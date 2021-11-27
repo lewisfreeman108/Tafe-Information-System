@@ -13,21 +13,24 @@ namespace Tafe_System.AdminWindows
 
         private readonly List<SqlParameter> searchByCourseParameters = new List<SqlParameter>();
 
-        // private KeyValuePair<String, SqlParameterDetails> teacherPrimaryKey = new KeyValuePair<string, SqlParameterDetails>("@teacherID", new SqlParameterDetails(SqlDbType.VarChar, 100));
         private readonly KeyValuePair<string, SqlParameterDetails> studentNameParameter = new KeyValuePair<string, SqlParameterDetails>("@studentname", new SqlParameterDetails(SqlDbType.VarChar, 100));
-        private readonly KeyValuePair<string, SqlParameterDetails> studentIDParameter = new KeyValuePair<string, SqlParameterDetails>("@studentid", new SqlParameterDetails(SqlDbType.VarChar, 100));
-        private readonly SqlParameterDictionary teacherStudentParameters = new SqlParameterDictionary();
+        private readonly KeyValuePair<string, SqlParameterDetails> studentIDParameter = new KeyValuePair<string, SqlParameterDetails>("@studentid", new SqlParameterDetails(SqlDbType.Int, null));
+        private readonly KeyValuePair<string, SqlParameterDetails> courseNameParameter = new KeyValuePair<string, SqlParameterDetails>("@coursename", new SqlParameterDetails(SqlDbType.VarChar, 100));
+        private readonly KeyValuePair<string, SqlParameterDetails> courseIDParameter = new KeyValuePair<string, SqlParameterDetails>("@courseid", new SqlParameterDetails(SqlDbType.Int, null));
+
+
+        private readonly SqlParameterDictionary searchParameters = new SqlParameterDictionary();
 
         public SearchStudentsMethods(DatabaseConnection databaseConnection)
         {
             this.databaseConnection = databaseConnection;
+            searchParameters.Add("@teacherid", new SqlParameterDetails(SqlDbType.Int, null));
+            searchParameters["@teacherid"].value = "-1";
         }
 
-        public SearchStudentsMethods(DatabaseConnection databaseConnection, string teacherID) : this(databaseConnection)
+        public void SetTeacher(string teacherID)
         {
-            teacherStudentParameters.Add("@teacherID", new SqlParameterDetails(SqlDbType.Int, null));
-            teacherStudentParameters.Add("@teacherID", new SqlParameterDetails(SqlDbType.Int, null));
-            teacherStudentParameters["@teacherID"].value = teacherID;
+            searchParameters["@teacherid"].value = teacherID;
         }
 
         public void SearchStudentNameAdmin_Click(DataGrid dsetStudents, ComboBox searchType, WatermarkTextBox txtBoxSearchByName, ComboBox searchSemester)
@@ -48,11 +51,12 @@ namespace Tafe_System.AdminWindows
             switch (SearchStudentName_Click(dsetStudents, searchType, txtBoxSearchByName, searchSemester))
             {
                 case 1:
-                    teacherStudentParameters[studentNameParameter.Key].value = studentNameParameter.Value.value;
-                    dsetStudents.ItemsSource = databaseConnection.GetTableFromDatabase("tsp_GetStudentByNameForTeacher", teacherStudentParameters).DefaultView;
+                    searchParameters.Add("@studentname", studentNameParameter.Value);
+                    searchParameters[studentNameParameter.Key].value = txtBoxSearchByName.Text;
+                    dsetStudents.ItemsSource = databaseConnection.GetTableFromDatabase("tsp_GetStudentByNameForTeacher", searchParameters).DefaultView;
+                    searchParameters.Remove("@studentname");
                     break;
                 case 2:
-                    searchByCourseParameters.Add(new SqlParameter("teacherID", teacherStudentParameters["@teacherID"].value));
                     dsetStudents.ItemsSource = databaseConnection.GetAppropriateDataTableFromStoredProcedure("tsp_GetStudentsByCourseNameForTeacher", searchByCourseParameters).DefaultView;
                     break;
             }
@@ -62,6 +66,7 @@ namespace Tafe_System.AdminWindows
         public int SearchStudentName_Click(DataGrid dsetStudents, ComboBox searchType, WatermarkTextBox txtBoxSearchByName, ComboBox searchSemester)
         {
             searchByCourseParameters.Clear();
+            searchByCourseParameters.Add(new SqlParameter("@teacherid", searchParameters["@teacherid"].value));
             if (searchType.SelectedIndex == 0)
             {
                 if (ValidationHelper.ValidateNoIntegers("Student name", txtBoxSearchByName.Text))
@@ -106,7 +111,7 @@ namespace Tafe_System.AdminWindows
             switch (SearchStudentID_Click(dsetStudents, searchType, txtBoxSearchByID, searchSemester))
             {
                 case 1:
-                    dsetStudents.ItemsSource = databaseConnection.GetTableFromDatabase("tsp_GetStudentByID", teacherStudentParameters).DefaultView;
+                    dsetStudents.ItemsSource = databaseConnection.GetTableFromDatabase("tsp_GetStudentByID", searchParameters).DefaultView;
                     break;
                 case 2:
                     dsetStudents.ItemsSource = databaseConnection.GetAppropriateDataTableFromStoredProcedure("tsp_GetStudentsByCourseID", searchByCourseParameters).DefaultView;
@@ -116,14 +121,16 @@ namespace Tafe_System.AdminWindows
 
         public void SearchStudentIDTeacher_Click(DataGrid dsetStudents, ComboBox searchType, WatermarkTextBox txtBoxSearchByID, ComboBox searchSemester)
         {
+
             switch (SearchStudentID_Click(dsetStudents, searchType, txtBoxSearchByID, searchSemester))
             {
                 case 1:
-                    teacherStudentParameters[studentIDParameter.Key].value = studentIDParameter.Value.value;
-                    dsetStudents.ItemsSource = databaseConnection.GetTableFromDatabase("tsp_GetStudentByIDForTeacher", teacherStudentParameters).DefaultView;
+                    searchParameters.Add("@studentid", studentIDParameter.Value);
+                    searchParameters["@studentid"].value = (String.IsNullOrWhiteSpace(txtBoxSearchByID.Text) ? "-1" : txtBoxSearchByID.Text);
+                    dsetStudents.ItemsSource = databaseConnection.GetTableFromDatabase("tsp_GetStudentByIDForTeacher", searchParameters).DefaultView;
+                    searchParameters.Remove("@studentid");
                     break;
                 case 2:
-                    searchByCourseParameters.Add(new SqlParameter("teacherID", teacherStudentParameters["@teacherID"].value));
                     dsetStudents.ItemsSource = databaseConnection.GetAppropriateDataTableFromStoredProcedure("tsp_GetStudentsByCourseIDForTeacher", searchByCourseParameters).DefaultView;
                     break;
             }
@@ -132,6 +139,8 @@ namespace Tafe_System.AdminWindows
         public int SearchStudentID_Click(DataGrid dsetStudents, ComboBox searchType, WatermarkTextBox txtBoxSearchByID, ComboBox searchSemester)
         {
             searchByCourseParameters.Clear();
+            searchByCourseParameters.Add(new SqlParameter("@teacherid", searchParameters["@teacherid"].value));
+
             if (searchType.SelectedIndex == 0)
             {
                 if (ValidationHelper.ValidateOnlyIntegers("Student ID", txtBoxSearchByID.Text))
@@ -165,7 +174,6 @@ namespace Tafe_System.AdminWindows
                 }
                 if (ValidationHelper.ValidateOnlyIntegers("Course ID", txtBoxSearchByID.Text))
                 {
-                    dsetStudents.ItemsSource = databaseConnection.GetAppropriateDataTableFromStoredProcedure("tsp_GetStudentsByCourseID", searchByCourseParameters).DefaultView;
                     return 2;
                 }
                 MessageBox.Show("Course ID must be an integer");

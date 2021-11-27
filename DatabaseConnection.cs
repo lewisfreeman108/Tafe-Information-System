@@ -108,7 +108,7 @@ namespace Tafe_System
             return 0;
         }
 
-        public bool AddUserToDatabase(SqlParameterDictionary parameterDictionary, string password, WatermarkTextBox[] textBoxElements, ComboBox[] comboBoxElementsValue, string removableSuffice, string successMessage, string addQuery)
+        public bool AddUserToDatabase(SqlParameterDictionary parameterDictionary, string password, WatermarkTextBox[] textBoxElements, ComboBox[] comboBoxElementsValue, CheckBox[] checkBoxElements, string removableSuffice, string successMessage, string addQuery)
         {
             if (string.IsNullOrWhiteSpace(password))
             {
@@ -119,7 +119,7 @@ namespace Tafe_System
             parameterDictionary["@salt"].value = salt;
             parameterDictionary["@password"].value = HashedPassword(password, salt);
 
-            return AddToDatabase(parameterDictionary, textBoxElements, comboBoxElementsValue, null, null, removableSuffice, successMessage, addQuery);
+            return AddToDatabase(parameterDictionary, textBoxElements, comboBoxElementsValue, null, checkBoxElements, removableSuffice, successMessage, addQuery);
         }
 
         public bool UpdateUserInDatabase(KeyValuePair<string, SqlParameterDetails> primaryKey, SqlParameterDictionary parameterDictionary, string password, string getSaltQuery, WatermarkTextBox primaryKeyTextBox, WatermarkTextBox[] textboxElements, ComboBox[] comboBoxElementsValue, string removableSuffice, string commandQueryGetDetails, string commandQueryUpdateDetails, string successMessage)
@@ -218,7 +218,6 @@ namespace Tafe_System
 
             if (!AddDictionaryToDatabase(parameterDictionary, query))
             {
-                System.Windows.MessageBox.Show("Something went wrong");
                 return false;
             }
             else
@@ -315,7 +314,7 @@ namespace Tafe_System
             }
         }
 
-        public void CreateBridge(string bridgeQuery, ref KeyValuePair<string, SqlParameterDetails> key1, WatermarkTextBox key1TextBox, ref KeyValuePair<string, SqlParameterDetails> key2, WatermarkTextBox key2TextBox)
+        public void CreateOrRemoveBridge(bool create, string bridgeQuery, ref KeyValuePair<string, SqlParameterDetails> key1, WatermarkTextBox key1TextBox, ref KeyValuePair<string, SqlParameterDetails> key2, WatermarkTextBox key2TextBox)
         {
             if (string.IsNullOrWhiteSpace(key1TextBox.Text) || string.IsNullOrWhiteSpace(key2TextBox.Text))
             {
@@ -327,11 +326,12 @@ namespace Tafe_System
                 key1.Value.value = key1TextBox.Text;
                 key2.Value.value = key2TextBox.Text;
 
-                if (CreateBridgeQuery(bridgeQuery, key1, key2))
+                if (BridgeQuery(bridgeQuery, key1, key2))
                 {
-                    key1TextBox.Text = "";
-                    key2TextBox.Text = "";
-                    System.Windows.MessageBox.Show("Bridge Created Successfully");
+                    System.Windows.MessageBox.Show("Bridge " + (create ? "created" : "removed") + " successfully");
+                } else if(!create)
+                {
+                    System.Windows.MessageBox.Show("Bridge not deleted as it does not exist");
                 }
             }
         }
@@ -342,7 +342,7 @@ namespace Tafe_System
             return foundBridge == -1 ? key1.Key + " or " + key2.Key + " invalid" : foundBridge.ToString();
         }
 
-        public bool CreateBridgeQuery(string bridgeQuery, KeyValuePair<string, SqlParameterDetails> key1, KeyValuePair<string, SqlParameterDetails> key2)
+        public bool BridgeQuery(string bridgeQuery, KeyValuePair<string, SqlParameterDetails> key1, KeyValuePair<string, SqlParameterDetails> key2)
         {
             using SqlCommand command = new SqlCommand(bridgeQuery, connection)
             {
@@ -352,7 +352,7 @@ namespace Tafe_System
             command.Parameters.Add(GenerateSQLParameter(key2));
             try
             {
-                command.ExecuteNonQuery();
+                return command.ExecuteNonQuery() > 0;
             }
             catch (SqlException ex)
             {
@@ -369,7 +369,6 @@ namespace Tafe_System
                 }
                 return false;
             }
-            return true;
         }
 
         private void FindBridgeQuery(string bridgeQuery, KeyValuePair<string, SqlParameterDetails> key1, KeyValuePair<string, SqlParameterDetails> key2, out int bridgeKey)
@@ -499,7 +498,6 @@ namespace Tafe_System
 
                 string selectedItem = dataRowView.Row[0].ToString();
 
-
                 primaryKeyTextBox.Text = selectedItem;
                 primaryKey.Value.value = selectedItem;
 
@@ -551,7 +549,6 @@ namespace Tafe_System
                                 checkBox.IsChecked = keyvaluepair.Value.value == "True" ? true : false;
                             }
                         }
-
                     }
                 }
             }
@@ -606,10 +603,11 @@ namespace Tafe_System
         public DataTable StoredProcedureDataTable(SqlCommand command)
         {
             DataTable dataTable = new DataTable();
-            ExecuteStoredProcedureQuery(ref command, false);
-            objDataAdapter.SelectCommand = command;
-            objDataAdapter.Fill(dataTable);
-
+            if (ExecuteStoredProcedureQuery(ref command, false))
+            {
+                objDataAdapter.SelectCommand = command;
+                objDataAdapter.Fill(dataTable);
+            }
             command.Dispose();
             return dataTable;
         }

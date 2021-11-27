@@ -20,7 +20,7 @@ namespace Tafe_System
         }
         public void SearchAllOfferings(KeyValuePair<string, SqlParameterDetails> teacherPrimaryKey, DataGrid dsetOfferings)
         {
-            dsetOfferings.ItemsSource = databaseConnection.GetTableFromDatabase("tsp_GetAllOfferings", teacherPrimaryKey).DefaultView;
+            dsetOfferings.ItemsSource = databaseConnection.GetTableFromDatabase("tsp_GetAllOfferingsForTeacher", teacherPrimaryKey).DefaultView;
         }
 
         private bool SearchOfferingsFiltered(List<SqlParameter> searchOfferingFilter, ComboBox searchSemester, WatermarkTextBox txtBoxSearchByCourse, WatermarkTextBox txtBoxSearchByLocation, WatermarkTextBox txtBoxSearchYear)
@@ -80,7 +80,7 @@ namespace Tafe_System
             if (SearchOfferingsFiltered(searchOfferingFilter, searchSemester, txtBoxSearchByCourse, txtBoxSearchByLocation, txtBoxSearchYear))
             {
                 searchOfferingFilter.Add(databaseConnection.GenerateSQLParameter(teacherPrimaryKey));
-                dsetOfferings.ItemsSource = databaseConnection.GetAppropriateDataTableFromStoredProcedure("tsp_GetOfferings", searchOfferingFilter).DefaultView;
+                dsetOfferings.ItemsSource = databaseConnection.GetAppropriateDataTableFromStoredProcedure("tsp_GetOfferingsForTeacher", searchOfferingFilter).DefaultView;
             }
         }
     }

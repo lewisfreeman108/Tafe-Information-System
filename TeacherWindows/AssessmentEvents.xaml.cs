@@ -24,6 +24,7 @@ namespace Tafe_System.AdminWindows
             assessmentEventParameters.AddParameter("@assessmentid", SqlDbType.Int);
             assessmentEventParameters.AddParameter("@duedate", SqlDbType.VarChar, 10);
             assessmentEventParameters.AddParameter("@teachermarkingid", SqlDbType.Int);
+            assessmentEventParameters.AddParameter("@offeringid", SqlDbType.Int);
         }
 
         public void SetTeacher(string teacherID)
@@ -53,8 +54,9 @@ namespace Tafe_System.AdminWindows
 
         private void btnSearchCourse_Click(object sender, RoutedEventArgs e)
         {
-            offeringPrimaryKey.Value.value = txtBoxSearchAssessments.Text;
-            assessmentEventParameters["@offeringid"].value = txtBoxSearchAssessments.Text;
+            string  id = (string.IsNullOrEmpty(txtBoxSearchAssessments.Text) ? "-1" : txtBoxSearchAssessments.Text); // ID can't be blank or it causes sql error
+            offeringPrimaryKey.Value.value = id;
+            assessmentEventParameters["@offeringid"].value = id;
             dsetAssessments.ItemsSource = databaseConnection.GetTableFromDatabase("tsp_GetAssessmentsForOffering", offeringPrimaryKey).DefaultView;
         }
 
@@ -75,7 +77,7 @@ namespace Tafe_System.AdminWindows
                 if (databaseConnection.ExecuteBasicQuery("tsp_UpdateAssessmentEvent", assessmentEventParameters))
                 {
                     Reset2();
-                    MessageBox.Show("Successfully created assessment event");
+                    MessageBox.Show("Successfully updated assessment event");
                 }
             }
         }

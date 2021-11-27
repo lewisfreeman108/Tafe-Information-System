@@ -76,10 +76,10 @@
             <Button x:Name="btnAddUnit" Content="Add" Width="74" Height="20" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="573,1455,0,0" TabIndex="3" RenderTransformOrigin="0.523,1.926" Click="btnAddUnit_Click" />
             <xctk:WatermarkTextBox x:Name ="updateUUnitID" Watermark="Unit ID" Width="118" Height="23" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="430,1485,0,0" />
             <Button x:Name="btnUpdateUnit" Content="Update" Width="74" Height="20" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="574,1487,0,0" TabIndex="3" RenderTransformOrigin="0.523,1.926" Click="btnUpdateUnit_Click" />
-            <Label Width="206" HorizontalContentAlignment ="Right" VerticalAlignment="Top" RenderTransformOrigin="-0.132,0.462" Margin="255,907,0,0"  HorizontalAlignment="Left" Content="Enter a Cluster ID and Unit ID below"/>
-            <Button x:Name="btnCreateUnitClusterUnitBridge" Content="Create Bridge" HorizontalAlignment="Left" Margin="481,910,0,0" VerticalAlignment="Top" Width="92" TabIndex="3" RenderTransformOrigin="0.523,1.926" Click="btnCreateUnitClusterUnitBridge_Click" />
-            <Label Width="234" HorizontalContentAlignment ="Right" VerticalAlignment="Top" RenderTransformOrigin="-0.132,0.462" Margin="227,878,0,0"  HorizontalAlignment="Left" Content="Enter a Course ID and Cluster ID below"/>
-            <Button x:Name="btnCreateCourseUnitClusterBridge" Content="Create Bridge" HorizontalAlignment="Left" Margin="481,881,0,0" VerticalAlignment="Top" Width="92" TabIndex="3" RenderTransformOrigin="0.523,1.926" Click="btnCreateCourseUnitClusterBridge_Click" />
+            <Label Width="206" HorizontalContentAlignment ="Right" VerticalAlignment="Top" RenderTransformOrigin="-0.132,0.462" Margin="200,907,0,0"  HorizontalAlignment="Left" Content="Enter a Cluster ID and Unit ID below"/>
+            <Button x:Name="btnCreateUnitClusterUnitBridge" Content="Create Bridge" HorizontalAlignment="Left" Margin="426,910,0,0" VerticalAlignment="Top" Width="92" TabIndex="3" RenderTransformOrigin="0.523,1.926" Click="btnCreateUnitClusterUnitBridge_Click" />
+            <Label Width="234" HorizontalContentAlignment ="Right" VerticalAlignment="Top" RenderTransformOrigin="-0.132,0.462" Margin="172,878,0,0"  HorizontalAlignment="Left" Content="Enter a Course ID and Cluster ID below"/>
+            <Button x:Name="btnCreateCourseUnitClusterBridge" Content="Create Bridge" HorizontalAlignment="Left" Margin="426,881,0,0" VerticalAlignment="Top" Width="92" TabIndex="3" RenderTransformOrigin="0.523,1.926" Click="btnCreateCourseUnitClusterBridge_Click" />
             <Button x:Name="btnRemoveCourse" Content="Remove" Width="74" Height="20" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="498,1265,0,0" TabIndex="3" RenderTransformOrigin="0.523,1.926" Click="btnRemoveCourse_Click"/>
             <Button x:Name="btnRemoveCluster" Content="Remove" Width="74" Height="20" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="287,1487,0,0" TabIndex="3" RenderTransformOrigin="0.523,1.926" Click="btnRemoveCluster_Click" />
             <Button x:Name="btnRemoveUnit_Copy" Content="Remove" Width="74" Height="20" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="696,1487,0,0" TabIndex="3" RenderTransformOrigin="0.523,1.926" Click="btnRemoveUnit_Click" />
@@ -111,9 +111,9 @@
             <Button x:Name="btnRemoveAssessment" Content="Remove" Width="74" Height="20" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="439,1711,0,0" Click="btnRemoveAssessment_Click"/>
             <Label x:Name ="assessmentTableLabel" Content="[Select a unit above or search for all]" HorizontalContentAlignment="Center" HorizontalAlignment="Center" Margin="0,667,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.132,0.462" Width="496" Height="23"/>
             <Button x:Name="btnSearchAllAssessments" Content="All Assessments" HorizontalAlignment="Left" Margin="522,669,0,0" VerticalAlignment="Top" Width="96" TabIndex="3" Click="btnSearchAllAssessments_Click"/>
-            <Label Width="229" HorizontalContentAlignment ="Right" VerticalAlignment="Top" RenderTransformOrigin="-0.132,0.462" Margin="232,936,0,0"  HorizontalAlignment="Left" Content="Enter a Unit ID and Assessment ID below"/>
-            <Button x:Name="btnCreateAssessmentUnitBridge" Content="Create Bridge" HorizontalAlignment="Left" Margin="481,939,0,0" VerticalAlignment="Top" Width="92" TabIndex="3" RenderTransformOrigin="0.523,1.926" Click="btnCreateAssessmentUnitBridge_Click" />
-            <Label Width="496" VerticalAlignment="Top" RenderTransformOrigin="-0.132,0.462" Margin="165,841,0,0" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Content="Create Bridges "/>
+            <Label Width="229" HorizontalContentAlignment ="Right" VerticalAlignment="Top" RenderTransformOrigin="-0.132,0.462" Margin="177,936,0,0"  HorizontalAlignment="Left" Content="Enter a Unit ID and Assessment ID below"/>
+            <Button x:Name="btnCreateAssessmentUnitBridge" Content="Create Bridge" HorizontalAlignment="Left" Margin="426,939,0,0" VerticalAlignment="Top" Width="92" TabIndex="3" RenderTransformOrigin="0.523,1.926" Click="btnCreateAssessmentUnitBridge_Click" />
+            <Label Width="496" VerticalAlignment="Top" RenderTransformOrigin="-0.132,0.462" Margin="165,841,0,0" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Content="Create Bridges (Select above or enter values below)"/>
             <Button x:Name="btnSearchAllCourses" Content="All Courses" HorizontalAlignment="Left" Margin="397,61,0,0" VerticalAlignment="Top" Width="117" TabIndex="3" Click="btnSearchAllCourses_Click"/>
             <xctk:WatermarkTextBox x:Name ="txtBoxSearchCourse" Watermark="Search For Course By Name" Width="243" Height="23" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="12,59,0,0" />
             <xctk:WatermarkTextBox x:Name ="addCLDescription" Watermark="Cluster Description" TextWrapping="WrapWithOverflow" AcceptsReturn="True" MaxLength ="300" Width="340" Height="100" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="46,1382,0,0" />
@@ -124,9 +124,13 @@
                 <ComboBoxItem IsSelected="True" Content="Core"/>
                 <ComboBoxItem Content="Elective"/>
             </ComboBox>
-            <Button x:Name="btnSearchClustersNoCourse" Content="All Clusters with no course" HorizontalAlignment="Left" Margin="630,263,0,0" VerticalAlignment="Top" Width="161" TabIndex="3" Click="btnSearchClustersNoCourse_Click"/>
-            <Button x:Name="btnSearchUnitsNoCourse" Content="All Units with no course" HorizontalAlignment="Left" Margin="631,459,0,0" VerticalAlignment="Top" Width="161" TabIndex="3" Click="btnSearchUnitsNoCourse_Click"/>
+            <Button x:Name="btnSearchClustersNoCourse" Content="All Clusters with no courses" HorizontalAlignment="Left" Margin="630,263,0,0" VerticalAlignment="Top" Width="161" TabIndex="3" Click="btnSearchClustersNoCourse_Click"/>
+            <Button x:Name="btnSearchUnitsNoCourse" Content="All Units with no clusters" HorizontalAlignment="Left" Margin="631,459,0,0" VerticalAlignment="Top" Width="161" TabIndex="3" Click="btnSearchUnitsNoCourse_Click"/>
             <Button x:Name="btnBack" Content="Back" HorizontalAlignment="Left" Margin="16,19,0,0" VerticalAlignment="Top" Width="150" TabIndex="3" Click="btnLogOut_Click"/>
+            <Button x:Name="btnSearchAssessmentsNoUnits" Content="All assessments with no units" HorizontalAlignment="Left" Margin="630,669,0,0" VerticalAlignment="Top" Width="161" TabIndex="3" Click="btnSearchAssessmentsNoUnits_Click"/>
+            <Button x:Name="btnRemoveUnitClusterUnitBridge" Content="Remove Bridge" HorizontalAlignment="Left" Margin="543,910,0,0" VerticalAlignment="Top" Width="92" TabIndex="3" RenderTransformOrigin="0.523,1.926" Click="btnRemoveUnitClusterUnitBridge_Click" />
+            <Button x:Name="btnRemoveCourseUnitClusterBridge" Content="Remove Bridge" HorizontalAlignment="Left" Margin="543,881,0,0" VerticalAlignment="Top" Width="92" TabIndex="3" RenderTransformOrigin="0.523,1.926" Click="btnRemoveCourseUnitClusterBridge_Click" />
+            <Button x:Name="btnRemoveAssessmentUnitBridge" Content="Remove Bridge" HorizontalAlignment="Left" Margin="543,939,0,0" VerticalAlignment="Top" Width="92" TabIndex="3" RenderTransformOrigin="0.523,1.926" Click="btnRemoveAssessmentUnitBridge_Click" />
         </Grid>
     </ScrollViewer>
 </Window>

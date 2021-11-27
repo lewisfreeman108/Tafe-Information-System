@@ -22,6 +22,7 @@ namespace Tafe_System
         {
             this.databaseConnection = databaseConnection;
             this.mainMenu = mainMenu;
+            teacherPrimaryKey.Value.value = "-1";
             searchStudentMethods = new SearchStudentsMethods(databaseConnection);
             InitializeComponent();
             searchSemester.IsEnabled = false;
@@ -30,6 +31,7 @@ namespace Tafe_System
         public void setTeacher(string teacherID)
         {
             teacherPrimaryKey.Value.value = teacherID;
+            searchStudentMethods.SetTeacher(teacherID);
         }
 
         public void Reset()
@@ -79,11 +81,11 @@ namespace Tafe_System
         {
             if (string.Equals(teacherPrimaryKey.Value.value, "-1"))
             {
-                searchStudentMethods.SearchStudentIDAdmin_Click(dsetStudents, searchType, txtBoxSearchByName, searchSemester);
+                searchStudentMethods.SearchStudentIDAdmin_Click(dsetStudents, searchType, txtBoxSearchByID, searchSemester);
             }
             else
             {
-                searchStudentMethods.SearchStudentIDTeacher_Click(dsetStudents, searchType, txtBoxSearchByName, searchSemester);
+                searchStudentMethods.SearchStudentIDTeacher_Click(dsetStudents, searchType, txtBoxSearchByID, searchSemester);
             }
             ResetResults();
         }

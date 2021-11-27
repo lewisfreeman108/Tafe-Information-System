@@ -55,7 +55,7 @@ namespace Tafe_System
             btnCourses.Visibility = Visibility.Hidden;
             btnStudents.Visibility = Visibility.Hidden;
             btnLocations.Visibility = Visibility.Hidden;
-            btnStudentResultsTeacher.Visibility = Visibility.Hidden;
+            btnStudentResultsAdmin.Visibility = Visibility.Hidden;
             btnOfferings.Visibility = Visibility.Hidden;
 
             btnStudentsAssessments.Visibility = Visibility.Hidden;
@@ -74,7 +74,7 @@ namespace Tafe_System
             this.locations = locations;
             btnLocations.Visibility = Visibility.Visible;
             this.studentResults = studentResults;
-            btnStudentResultsTeacher.Visibility = Visibility.Visible;
+            btnStudentResultsAdmin.Visibility = Visibility.Visible;
             this.offering = offering;
             btnOfferings.Visibility = Visibility.Visible;
 
@@ -106,7 +106,7 @@ namespace Tafe_System
             btnCourses.Visibility = Visibility.Hidden;
             btnStudents.Visibility = Visibility.Hidden;
             btnLocations.Visibility = Visibility.Hidden;
-            btnStudentResultsTeacher.Visibility = Visibility.Hidden;
+            btnStudentResultsAdmin.Visibility = Visibility.Hidden;
             btnOfferings.Visibility = Visibility.Hidden;
         }
 

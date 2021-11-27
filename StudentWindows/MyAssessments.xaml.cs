@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Windows;
 using System.Windows.Controls;
@@ -25,6 +26,9 @@ namespace Tafe_System.StudentWindows
         private readonly KeyValuePair<string, SqlParameterDetails> submissionFileName = new KeyValuePair<string, SqlParameterDetails>("@submissionfilename", new SqlParameterDetails(SqlDbType.VarChar, 100));
 
         private readonly KeyValuePair<string, SqlParameterDetails> submissionResult = new KeyValuePair<string, SqlParameterDetails>("@result", new SqlParameterDetails(SqlDbType.VarChar, 15));
+        
+        private readonly SqlParameterDictionary resourceParameters = new SqlParameterDictionary();
+
 
         public MyAssessments(DatabaseConnection databaseConnection, MainMenu mainMenu)
         {
@@ -35,6 +39,9 @@ namespace Tafe_System.StudentWindows
             submissionParameters.AddParameter("@studentid", SqlDbType.Int);
             submissionParameters.AddParameter("@assessmentid", SqlDbType.Int);
             submissionParameters.Add(submissionFileName.Key, submissionFileName.Value);
+
+            resourceParameters.AddParameter("@enrolmentid", SqlDbType.Int);
+            resourceParameters.AddParameter("@clusterid", SqlDbType.Int);
         }
 
         public void NewUser(string studentID)
@@ -47,17 +54,32 @@ namespace Tafe_System.StudentWindows
 
         private void dsetEnrolments_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            databaseConnection.NewDataGridSelection(dsetEnrolments, dsetUnitClusters, 0, enrolmentPrimaryKey, "tsp_GetAllCLustersForEnrolment");
-            dsetAssessments.ItemsSource = null;
-            dsetResources.ItemsSource = null;
-            dsetSubmissions.ItemsSource = null;
+            DataRowView dataRowView = (DataRowView)dsetEnrolments.SelectedItem;
+            if (dataRowView != null)
+            {
+                String selectedItem = dataRowView.Row[0].ToString();
+                databaseConnection.NewDataGridSelection(dsetEnrolments, dsetUnitClusters, 0, enrolmentPrimaryKey, "tsp_GetAllCLustersForEnrolment");
+                resourceParameters["@enrolmentid"].value = selectedItem;
+                dsetAssessments.ItemsSource = null;
+                dsetResources.ItemsSource = null;
+                dsetSubmissions.ItemsSource = null;
+            }
+                
         }
 
         private void dsetUnitCluster_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            databaseConnection.NewDataGridSelection(dsetUnitClusters, dsetAssessments, 0, clusterPrimaryKey, "tsp_GetAssessmentsForUnitCluster");
-            databaseConnection.NewDataGridSelection(dsetUnitClusters, dsetResources, 0, clusterPrimaryKey, "tsp_GetResourcesForUnitCluster");
-            dsetSubmissions.ItemsSource = null;
+            DataRowView dataRowView = (DataRowView)dsetUnitClusters.SelectedItem;
+            if (dataRowView != null)
+            {
+                String selectedItem = dataRowView.Row[0].ToString();
+
+                databaseConnection.NewDataGridSelection(dsetUnitClusters, dsetAssessments, 0, clusterPrimaryKey, "tsp_GetAssessmentsForUnitCluster");
+                resourceParameters["@clusterid"].value = selectedItem;
+                dsetResources.ItemsSource = databaseConnection.GetTableFromDatabase("tsp_GetResourcesForUnitCluster", resourceParameters).DefaultView;
+                dsetSubmissions.ItemsSource = null;
+            }
+                
         }
 
         private void dsetAssessment_SelectionChanged(object sender, SelectionChangedEventArgs e)
