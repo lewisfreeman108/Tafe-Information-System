@@ -39,16 +39,16 @@
                 <ComboBoxItem Content="Both"/>
             </ComboBox>
             <Label Content="Add Student" HorizontalContentAlignment="Center" HorizontalAlignment="Center" Margin="0,774,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.132,0.462" Width="496"/>
-            <extToolkit:WatermarkTextBox x:Name ="addSFirstName" Watermark="First Name" Width="116" Height="23" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="156,805,0,0" />
-            <extToolkit:WatermarkTextBox x:Name ="addSSurname" Watermark="Surname" Width="116" Height="23" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="278,805,0,0" />
-            <extToolkit:WatermarkTextBox x:Name ="addSMobile" Watermark="Mobile" Width="116" Height="23" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="522,805,0,0" MaxLength="10" MinWidth="10"/>
-            <extToolkit:WatermarkTextBox x:Name ="addSStreetAddress" Watermark="Street Address" Width="116" Height="23" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="156,843,0,0" />
-            <extToolkit:WatermarkTextBox x:Name ="addSSuburb" Watermark="Suburb" Width="116" Height="23" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="278,843,0,0" />
-            <extToolkit:WatermarkTextBox x:Name ="addSPostcode" Watermark="Postcode" Width="116" Height="23" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="400,843,0,0" MaxLength="4"/>
-            <Button x:Name="btnAddStudent" Content="Add" Width="74" Height="20" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="300,881,0,0" TabIndex="3" Click="btnAddStudent_Click" RenderTransformOrigin="0.523,1.926"/>
-            <extToolkit:WatermarkTextBox x:Name ="addSEmail" Watermark="Email" Width="116" Height="23" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="400,805,0,0" />
-            <extToolkit:WatermarkTextBox x:Name ="addSPassword" Watermark="Password" Width="116" Height="23" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="156,880,0,0" />
-            <ComboBox x:Name="addSState" Width="116" Height="23" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="522,843,0,0" SelectedValuePath="Content">
+            <extToolkit:WatermarkTextBox x:Name ="addSFirstName" Watermark="First Name" Width="116" Height="23" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="290,803,0,0" />
+            <extToolkit:WatermarkTextBox x:Name ="addSSurname" Watermark="Surname" Width="116" Height="23" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="412,803,0,0" />
+            <extToolkit:WatermarkTextBox x:Name ="addSMobile" Watermark="Mobile" Width="116" Height="23" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="656,803,0,0" MaxLength="10" MinWidth="10"/>
+            <extToolkit:WatermarkTextBox x:Name ="addSStreetAddress" Watermark="Street Address" Width="116" Height="23" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="290,841,0,0" />
+            <extToolkit:WatermarkTextBox x:Name ="addSSuburb" Watermark="Suburb" Width="116" Height="23" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="412,841,0,0" />
+            <extToolkit:WatermarkTextBox x:Name ="addSPostcode" Watermark="Postcode" Width="116" Height="23" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="534,841,0,0" MaxLength="4"/>
+            <Button x:Name="btnAddStudent" Content="Add" Width="74" Height="20" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="434,879,0,0" TabIndex="3" Click="btnAddStudent_Click" RenderTransformOrigin="0.523,1.926"/>
+            <extToolkit:WatermarkTextBox x:Name ="addSEmail" Watermark="Email" Width="116" Height="23" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="534,803,0,0" />
+            <extToolkit:WatermarkTextBox x:Name ="addSPassword" Watermark="Password" Width="116" Height="23" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="290,878,0,0" />
+            <ComboBox x:Name="addSState" Width="116" Height="23" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="656,841,0,0" SelectedValuePath="Content">
                 <ComboBoxItem IsSelected="True" Content="NSW"/>
                 <ComboBoxItem Content="NT"/>
                 <ComboBoxItem Content="Qld"/>
@@ -58,20 +58,20 @@
                 <ComboBoxItem Content="Vic"/>
             </ComboBox>
             <Label Content="Add Enrolment" HorizontalContentAlignment="Center" HorizontalAlignment="Center" Margin="0,959,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.132,0.462" Width="496"/>
-            <extToolkit:WatermarkTextBox x:Name ="addEStudentID" Watermark="Student ID" Width="116" Height="23" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="275,990,0,0" />
-            <extToolkit:WatermarkTextBox x:Name ="addEAmountPaid" Watermark="Amount Paid" Width="116" Height="23" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="220,1028,0,0" />
-            <Button x:Name="btnAddEnrolment" Content="Add" HorizontalAlignment="Left" Margin="486,1029,0,0" VerticalAlignment="Top" Width="76" TabIndex="3" Click="btnAddEnrolment_Click" RenderTransformOrigin="0.523,1.926"/>
-            <ComboBox x:Name="addEPaymentMethod" Width="116" Height="23" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="341,1028,0,0" SelectedValuePath="Content">
+            <extToolkit:WatermarkTextBox x:Name ="addEStudentID" Watermark="Student ID" Width="116" Height="23" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="396,990,0,0" />
+            <extToolkit:WatermarkTextBox x:Name ="addEAmountPaid" Watermark="Amount Paid" Width="116" Height="23" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="349,1028,0,0" />
+            <Button x:Name="btnAddEnrolment" Content="Add" HorizontalAlignment="Left" Margin="615,1029,0,0" VerticalAlignment="Top" Width="76" TabIndex="3" Click="btnAddEnrolment_Click" RenderTransformOrigin="0.523,1.926"/>
+            <ComboBox x:Name="addEPaymentMethod" Width="116" Height="23" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="470,1028,0,0" SelectedValuePath="Content">
                 <ComboBoxItem IsSelected="True" Content="Card"/>
                 <ComboBoxItem Content="EFTPOS"/>
                 <ComboBoxItem Content="Online Payment"/>
             </ComboBox>
-            <extToolkit:WatermarkTextBox x:Name ="updateEEnrolmentID" Watermark="Enrolment ID" Width="116" Height="23" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="217,1065,0,0"/>
-            <Button x:Name="btnUpdateEnrolment" Content="Update" Width="74" Height="20" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="362,1066,0,0" TabIndex="3" RenderTransformOrigin="0.523,1.926" Click="btnUpdateEnrolment_Click"/>
-            <extToolkit:WatermarkTextBox x:Name ="updateSStudentID" Watermark="Student ID" Width="116" Height="23" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="156,918,0,0" />
-            <Button x:Name="btnUpdateStudent" Content="Update" HorizontalAlignment="Left" Margin="300,920,0,0" VerticalAlignment="Top" Width="74" TabIndex="3" Click="btnUpdateStudent_Click" RenderTransformOrigin="0.523,1.926"/>
-            <Button x:Name="btnRemoveEnrolment" Content="Remove" Width="74" Height="20" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="484,1066,0,0" TabIndex="3" RenderTransformOrigin="0.523,1.926" Click="btnRemoveEnrolment_Click"/>
-            <Button x:Name="btnRemoveStudent" Content="Remove" HorizontalAlignment="Left" Margin="420,920,0,0" VerticalAlignment="Top" Width="76" TabIndex="3" Click="btnRemoveStudent_Click" RenderTransformOrigin="0.523,1.926"/>
+            <extToolkit:WatermarkTextBox x:Name ="updateEEnrolmentID" Watermark="Enrolment ID" Width="116" Height="23" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="346,1065,0,0"/>
+            <Button x:Name="btnUpdateEnrolment" Content="Update" Width="74" Height="20" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="491,1066,0,0" TabIndex="3" RenderTransformOrigin="0.523,1.926" Click="btnUpdateEnrolment_Click"/>
+            <extToolkit:WatermarkTextBox x:Name ="updateSStudentID" Watermark="Student ID" Width="116" Height="23" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="290,916,0,0" />
+            <Button x:Name="btnUpdateStudent" Content="Update" HorizontalAlignment="Left" Margin="434,918,0,0" VerticalAlignment="Top" Width="74" TabIndex="3" Click="btnUpdateStudent_Click" RenderTransformOrigin="0.523,1.926"/>
+            <Button x:Name="btnRemoveEnrolment" Content="Remove" Width="74" Height="20" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="613,1066,0,0" TabIndex="3" RenderTransformOrigin="0.523,1.926" Click="btnRemoveEnrolment_Click"/>
+            <Button x:Name="btnRemoveStudent" Content="Remove" HorizontalAlignment="Left" Margin="554,918,0,0" VerticalAlignment="Top" Width="76" TabIndex="3" Click="btnRemoveStudent_Click" RenderTransformOrigin="0.523,1.926"/>
             <ComboBox x:Name="cmbBoxMode" Width="158" Height="23" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="433,417,0,0">
 
                 <ComboBoxItem IsSelected ="True" Content="On Campus and Online"/>
@@ -105,7 +105,7 @@
                 <ComboBoxItem Content="Semester 2"/>
             </ComboBox>
             <Button x:Name="btnSearchAllStudents" Content="All Students" HorizontalAlignment="Left" Margin="496,111,0,0" VerticalAlignment="Top" Width="116" Click="btnSearchAllStudents_Click" TabIndex="3"/>
-            <extToolkit:WatermarkTextBox x:Name ="addEOfferingID" Watermark="Offering ID" Width="116" Height="23" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="398,990,0,0" />
+            <extToolkit:WatermarkTextBox x:Name ="addEOfferingID" Watermark="Offering ID" Width="116" Height="23" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="520,990,0,0" />
             <Button x:Name="btnBack" Content="Back" HorizontalAlignment="Left" Margin="11,35,0,0" VerticalAlignment="Top" Width="150" TabIndex="3" Click="btnLogOut_Click"/>
         </Grid>
     </ScrollViewer>

@@ -38,6 +38,8 @@ namespace Tafe_System
         {
             dsetStudents.ItemsSource = null;
             teacherPrimaryKey.Value.value = "-1";
+            searchStudentMethods.SetAdmin();
+
             ResetResults();
         }
 

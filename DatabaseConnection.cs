@@ -34,6 +34,7 @@ namespace Tafe_System
                     break;
                 case 2627:
                     System.Windows.MessageBox.Show("An alternate or primary key was duplicate:\n" + er.Errors[0].Message);
+                    System.Diagnostics.Debug.WriteLine("An alternate or primary key was duplicate:\n" + er.Errors[0].Message);
                     break;
                 default:
                     System.Windows.MessageBox.Show("An unknown error has occured\n" + er.Errors[0].Number + ": " + er.Errors[0].Message);
@@ -236,7 +237,7 @@ namespace Tafe_System
                 command.Parameters.Add(parameter);
             }
             command.CommandType = System.Data.CommandType.StoredProcedure;
-            return ExecuteStoredProcedureQuery(ref command, true);
+            return ExecuteStoredProcedureQuery(ref command, true, out _);
         }
 
         public bool UpdateDatabase(string commandQueryUpdateValues, string commandQueryGetValues, KeyValuePair<string, SqlParameterDetails> primaryKey, SqlParameterDictionary parameterDictionary, WatermarkTextBox primaryKeyTextBox, WatermarkTextBox[] textBoxElements, ComboBox[] comboBoxElementsValue, ComboBox[] comboBoxElementsIndex, CheckBox[] checkBoxElements, string removableSuffice, string successMessage)
@@ -273,7 +274,15 @@ namespace Tafe_System
             foreach (SqlParameter parameter in GenerateSQLParameters(parameterDictionary)) command.Parameters.Add(parameter);
             try
             {
-                return command.ExecuteNonQuery() > 0;
+
+                if( command.ExecuteNonQuery() > 0)
+                {
+                    return true;
+                } else
+                {
+                    System.Windows.MessageBox.Show("Could not update " + primaryKey.Key + " as it does not exist");
+                    return false;
+                }
             }
             catch (FormatException)
             {
@@ -339,6 +348,7 @@ namespace Tafe_System
         public string FindBridge(string bridgeQuery, KeyValuePair<string, SqlParameterDetails> key1, KeyValuePair<string, SqlParameterDetails> key2)
         {
             FindBridgeQuery(bridgeQuery, key1, key2, out int foundBridge);
+            System.Diagnostics.Debug.WriteLine(foundBridge == -1 ? key1.Key + " or " + key2.Key + " invalid" : foundBridge.ToString());
             return foundBridge == -1 ? key1.Key + " or " + key2.Key + " invalid" : foundBridge.ToString();
         }
 
@@ -378,7 +388,7 @@ namespace Tafe_System
             command.Parameters.Add(GenerateSQLParameter(key1));
             command.Parameters.Add(GenerateSQLParameter(key2));
             command.Parameters.Add(new SqlParameter("@foundbridge", SqlDbType.Int)).Direction = ParameterDirection.Output;
-            ExecuteStoredProcedureQuery(ref command, false);
+            ExecuteStoredProcedureQuery(ref command, false, out _);
 
             if (int.TryParse(command.Parameters["@foundbridge"].Value.ToString(), out int bridge))
             {
@@ -411,7 +421,7 @@ namespace Tafe_System
         public string GetValueFromTable(ref SqlCommand command, KeyValuePair<string, SqlParameterDetails> returnValue)
         {
             command.Parameters.Add(GenerateSQLParameter(returnValue)).Direction = System.Data.ParameterDirection.Output;
-            ExecuteStoredProcedureQuery(ref command, false);
+            ExecuteStoredProcedureQuery(ref command, false, out _);
             try
             {
                 return command.Parameters[returnValue.Key].Value.ToString();
@@ -436,7 +446,7 @@ namespace Tafe_System
             SqlCommand command = new SqlCommand(userSaltQuery, connection);
             command.Parameters.Add(GenerateSQLParameter(primaryKey));
             command.Parameters.Add(new SqlParameter("@salt", SqlDbType.VarChar, 255)).Direction = System.Data.ParameterDirection.Output;
-            ExecuteStoredProcedureQuery(ref command, false);
+            ExecuteStoredProcedureQuery(ref command, false, out _);
             try
             {
                 return HashedPassword(password, command.Parameters["@salt"].Value.ToString());
@@ -463,13 +473,15 @@ namespace Tafe_System
                 System.Windows.MessageBox.Show(primaryKey.Key + " must not have any spaces");
                 return false;
             }
-            if (ExecuteBasicQuery(deleteQuery, primaryKey))
+
+            if (ExecuteBasicQuery(deleteQuery, primaryKey, out int rowsAffected) && rowsAffected > 0)
             {
                 ClearUserInputFieldsAfterSuccessfulChange(successMessage, primaryKeyTextBox, textBoxes, comboBoxesValue, comboBoxIndex, checkBoxes);
                 return true;
             }
             else
             {
+                System.Windows.MessageBox.Show("Cannot delete " + primaryKey.Key + " as it does not exist");
                 return false;
             }
 
@@ -581,17 +593,18 @@ namespace Tafe_System
             return GetAppropriateDataTableFromStoredProcedure(query, GenerateSQLParameters(parameterDictionary));
         }
 
-        public bool ExecuteStoredProcedureQuery(ref SqlCommand command, bool dispose)
+        public bool ExecuteStoredProcedureQuery(ref SqlCommand command, bool dispose, out int rowsAffected)
         {
             command.CommandType = System.Data.CommandType.StoredProcedure;
             try
             {
-                command.ExecuteNonQuery();
+                rowsAffected = command.ExecuteNonQuery();
                 return true;
             }
             catch (SqlException er)
             {
                 SqlExceptionRegular(er);
+                rowsAffected = 0;
                 return false;
             }
             finally
@@ -603,7 +616,7 @@ namespace Tafe_System
         public DataTable StoredProcedureDataTable(SqlCommand command)
         {
             DataTable dataTable = new DataTable();
-            if (ExecuteStoredProcedureQuery(ref command, false))
+            if (ExecuteStoredProcedureQuery(ref command, false, out _))
             {
                 objDataAdapter.SelectCommand = command;
                 objDataAdapter.Fill(dataTable);
@@ -631,19 +644,24 @@ namespace Tafe_System
             return StoredProcedureDataTable(command);
         }
 
-        public bool ExecuteBasicQuery(string query, SqlParameterDictionary parameters)
+        public bool ExecuteBasicQuery(string query, out int rowsAffected)
+        {
+            SqlCommand command = new SqlCommand(query, connection);
+            return ExecuteStoredProcedureQuery(ref command, true, out rowsAffected);
+        }
+
+        public bool ExecuteBasicQuery(string query, SqlParameterDictionary parameters, out int rowsAffected)
         {
             SqlCommand command = new SqlCommand(query, connection);
             foreach (SqlParameter parameter in GenerateSQLParameters(parameters)) command.Parameters.Add(parameter);
-            return ExecuteStoredProcedureQuery(ref command, true);
-
+            return ExecuteStoredProcedureQuery(ref command, true, out rowsAffected);
         }
 
-        public bool ExecuteBasicQuery(string query, KeyValuePair<string, SqlParameterDetails> primaryKey)
+        public bool ExecuteBasicQuery(string query, KeyValuePair<string, SqlParameterDetails> primaryKey, out int rowsAffected)
         {
             SqlCommand command = new SqlCommand(query, connection);
             command.Parameters.Add(GenerateSQLParameter(primaryKey));
-            return ExecuteStoredProcedureQuery(ref command, true);
+            return ExecuteStoredProcedureQuery(ref command, true, out rowsAffected);
         }
 
     }

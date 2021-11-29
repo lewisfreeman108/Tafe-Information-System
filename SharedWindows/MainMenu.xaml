@@ -1,0 +1,26 @@
+﻿<Window x:Class="Tafe_System.MainMenu"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Tafe_System"
+        mc:Ignorable="d"
+        Title="MainMenu" Height="410" Width="859">
+    <Grid Width ="802">
+        <Button x:Name="btnTeacherInformation" Visibility="visible" Content="Teacher Information" HorizontalAlignment="Left" Margin="228,170,0,0" VerticalAlignment="Top" Width="150" TabIndex="3" Click="btnTeacherInformation_Click"/>
+        <Button x:Name="btnCourses"  Content="Courses Clusters and Units" Visibility="visible" HorizontalAlignment="Left" Margin="417,170,0,0" VerticalAlignment="Top" Width="150" TabIndex="3" Click="btnCourses_Click"/>
+        <Button x:Name="btnStudents"  Content="Students and Enrolments" Visibility="visible" HorizontalAlignment="Left" Margin="228,110,0,0" VerticalAlignment="Top" Width="150" TabIndex="3" Click="btnStudents_Click"/>
+        <Button x:Name="btnLocations" Content="Locations" Visibility="visible" HorizontalAlignment="Left" Margin="228,230,0,0" VerticalAlignment="Top" Width="150" TabIndex="3" Click="btnLocations_Click"/>
+        <Button x:Name="btnSubmissions" Visibility ="visible" Content="Assessment Submissions" HorizontalAlignment="Left" Margin="417,230,0,0" VerticalAlignment="Top" Width="150" TabIndex="3" Click="btnSubmissions_Click"/>
+        <Button x:Name="btnStudentResultsAdmin" Visibility="visible" Content="Student Results" HorizontalAlignment="Left" Margin="417,230,0,0" VerticalAlignment="Top" Width="150" TabIndex="3" Click="btnStudentResults_Click"/>
+        <Button x:Name="btnOfferings" Visibility="visible" Content="Enrolment Offerings" HorizontalAlignment="Left" Margin="417,110,0,0" VerticalAlignment="Top" Width="150" TabIndex="3" Click="btnOfferings_Click"/>
+        <Label x:Name ="labelMainMenu" Content="" HorizontalContentAlignment="Center" FontSize="20"  FontWeight="Bold" HorizontalAlignment="Center" Margin="0,36,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.132,0.462" Width="496"/>
+        <Button x:Name="btnStudentTimeTables" Visibility ="visible" Content="My Timetable" HorizontalAlignment="Left" Margin="228,170,0,0" VerticalAlignment="Top" Width="150" TabIndex="3" Click="btnStudentTimeTable_Click"/>
+        <Button x:Name="btnStudentsAssessments"  Content="Assessments and Resources" Visibility ="visible" HorizontalAlignment="Left" Margin="417,170,0,0" VerticalAlignment="Top" Width="150" TabIndex="3" Click="btnStudentsAssessments_Click"/>
+        <Button x:Name="btnLogOut" Content="Log Out" HorizontalAlignment="Left" Margin="86,348,0,0" VerticalAlignment="Top" Width="150" TabIndex="3" Click="btnLogOut_Click"/>
+        <Button x:Name="btnAssessmentEvents" Visibility="visible" Content="Assessment Events"  HorizontalAlignment="Left" Margin="417,110,0,0" VerticalAlignment="Top" Width="150" TabIndex="3" Click="btnAssessmentEvents_Click"/>
+        <Button x:Name="btnResources" Visibility ="visible" Content="Resources" HorizontalAlignment="Left" Margin="228,230,0,0" VerticalAlignment="Top" Width="150" TabIndex="3" Click="btnResources_Click"/>
+        <Button x:Name="btnStudentResultsTeacher" Visibility="visible" Content="Student Results" HorizontalAlignment="Left" Margin="228,110,0,0" VerticalAlignment="Top" Width="150" TabIndex="3" Click="btnStudentResults_Click"/>
+
+    </Grid>
+</Window>

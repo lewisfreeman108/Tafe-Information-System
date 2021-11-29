@@ -126,7 +126,7 @@
             </ComboBox>
             <Button x:Name="btnSearchClustersNoCourse" Content="All Clusters with no courses" HorizontalAlignment="Left" Margin="630,263,0,0" VerticalAlignment="Top" Width="161" TabIndex="3" Click="btnSearchClustersNoCourse_Click"/>
             <Button x:Name="btnSearchUnitsNoCourse" Content="All Units with no clusters" HorizontalAlignment="Left" Margin="631,459,0,0" VerticalAlignment="Top" Width="161" TabIndex="3" Click="btnSearchUnitsNoCourse_Click"/>
-            <Button x:Name="btnBack" Content="Back" HorizontalAlignment="Left" Margin="16,19,0,0" VerticalAlignment="Top" Width="150" TabIndex="3" Click="btnLogOut_Click"/>
+            <Button x:Name="btnBack" Content="Back" HorizontalAlignment="Left" Margin="16,19,0,0" VerticalAlignment="Top" Width="150" TabIndex="3" Click="btn_MainMenu_Click"/>
             <Button x:Name="btnSearchAssessmentsNoUnits" Content="All assessments with no units" HorizontalAlignment="Left" Margin="630,669,0,0" VerticalAlignment="Top" Width="161" TabIndex="3" Click="btnSearchAssessmentsNoUnits_Click"/>
             <Button x:Name="btnRemoveUnitClusterUnitBridge" Content="Remove Bridge" HorizontalAlignment="Left" Margin="543,910,0,0" VerticalAlignment="Top" Width="92" TabIndex="3" RenderTransformOrigin="0.523,1.926" Click="btnRemoveUnitClusterUnitBridge_Click" />
             <Button x:Name="btnRemoveCourseUnitClusterBridge" Content="Remove Bridge" HorizontalAlignment="Left" Margin="543,881,0,0" VerticalAlignment="Top" Width="92" TabIndex="3" RenderTransformOrigin="0.523,1.926" Click="btnRemoveCourseUnitClusterBridge_Click" />

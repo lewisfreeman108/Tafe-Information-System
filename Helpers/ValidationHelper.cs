@@ -16,7 +16,7 @@ namespace Tafe_System
             if (string.IsNullOrWhiteSpace(text)) return true; //DatabaseConnection Methods handle blank strings accordingly
             if (!text.Replace("$", "").All(c => c >= '0' && c <= '9'))
             {
-                MessageBox.Show(key + "must be an Integer");
+                MessageBox.Show(key + "must be an integer");
                 return false;
             }
             return true;
@@ -27,7 +27,7 @@ namespace Tafe_System
             if (string.IsNullOrWhiteSpace(text)) return true; //DatabaseConnection Methods handle blank strings accordingly
             if (!text.All(c => c < '0' || c > '9'))
             {
-                MessageBox.Show(key + "must be not have any integers");
+                MessageBox.Show(key + " must not have any integers");
                 return false;
             }
             return true;

@@ -54,7 +54,7 @@ namespace Tafe_System.AdminWindows
 
         private void btnSearchCourse_Click(object sender, RoutedEventArgs e)
         {
-            string  id = (string.IsNullOrEmpty(txtBoxSearchAssessments.Text) ? "-1" : txtBoxSearchAssessments.Text); // ID can't be blank or it causes sql error
+            string  id = string.IsNullOrEmpty(txtBoxSearchAssessments.Text) ? "-1" : txtBoxSearchAssessments.Text; // ID can't be blank or it causes sql error
             offeringPrimaryKey.Value.value = id;
             assessmentEventParameters["@offeringid"].value = id;
             dsetAssessments.ItemsSource = databaseConnection.GetTableFromDatabase("tsp_GetAssessmentsForOffering", offeringPrimaryKey).DefaultView;
@@ -74,7 +74,7 @@ namespace Tafe_System.AdminWindows
             if (ValidationHelper.ValidateIsDate("Due date", createAEDueDate.Text))
             {
                 SetAssessmentEventParameters();
-                if (databaseConnection.ExecuteBasicQuery("tsp_UpdateAssessmentEvent", assessmentEventParameters))
+                if (databaseConnection.ExecuteBasicQuery("tsp_UpdateAssessmentEvent", assessmentEventParameters, out _))
                 {
                     Reset2();
                     MessageBox.Show("Successfully updated assessment event");

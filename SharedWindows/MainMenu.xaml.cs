@@ -74,6 +74,7 @@ namespace Tafe_System
             this.locations = locations;
             btnLocations.Visibility = Visibility.Visible;
             this.studentResults = studentResults;
+            
             btnStudentResultsAdmin.Visibility = Visibility.Visible;
             this.offering = offering;
             btnOfferings.Visibility = Visibility.Visible;

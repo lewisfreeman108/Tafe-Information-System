@@ -121,7 +121,7 @@ namespace Tafe_System
                 submissionResultParameters["@result"].value = updateSResult.Text;
                 submissionResultParameters["@comments"].value = updateSComments.Text;
 
-                if (databaseConnection.ExecuteBasicQuery("tsp_UpdateSubmissionResult", submissionResultParameters))
+                if (databaseConnection.ExecuteBasicQuery("tsp_UpdateSubmissionResult", submissionResultParameters, out _))
                 {
                     GetSubmissions();
                     System.Windows.MessageBox.Show("Successfully graded submission");

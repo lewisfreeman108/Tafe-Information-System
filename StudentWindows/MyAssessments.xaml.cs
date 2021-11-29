@@ -113,7 +113,7 @@ namespace Tafe_System.StudentWindows
 
             if (ValidationHelper.ValidateIsFileName("Submission File Name", updateSSubmissionFileName.Text))
             {
-                if (databaseConnection.ExecuteBasicQuery("tsp_UpdateStudentSubmission", submissionParameters))
+                if (databaseConnection.ExecuteBasicQuery("tsp_UpdateStudentSubmission", submissionParameters, out _))
                 {
                     System.Windows.MessageBox.Show("Successfully submitted assessment");
                 }
