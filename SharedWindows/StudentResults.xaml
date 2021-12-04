@@ -21,8 +21,8 @@
                 </DataGrid.Columns>
             </DataGrid>
             <Label Content="All Students" HorizontalContentAlignment="Center" HorizontalAlignment="Center" Margin="0,9,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.132,0.462" Width="496"/>
-            <Button x:Name="btnSearchStudentName" Content="Search" HorizontalAlignment="Left" Margin="277,81,0,0" VerticalAlignment="Top" Width="75" TabIndex="3"/>
-            <Button x:Name="btnSearchStudentID" Content="Search" HorizontalAlignment="Left" Margin="277,112,0,0" VerticalAlignment="Top" Width="75" TabIndex="3"/>
+            <Button x:Name="btnSearchStudentName" Content="Search" HorizontalAlignment="Left" Margin="277,81,0,0" VerticalAlignment="Top" Width="75" Click="btnSearchStudentName_Click" TabIndex="3"/>
+            <Button x:Name="btnSearchStudentID" Content="Search" HorizontalAlignment="Left" Margin="277,112,0,0" VerticalAlignment="Top" Width="75" TabIndex="3" Click="btnSearchStudentID_Click"/>
             <Label Content="Student Results (Select a student in the above table)" HorizontalContentAlignment="Center" HorizontalAlignment="Center" Margin="0,392,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.132,0.462" Width="496" />
             <TextBlock  TextWrapping="WrapWithOverflow" Text="PLEASE NOTE: student results CANNOT be updated to prevent human error, the system will automatically update all other results when an assessment submission is graded."   HorizontalAlignment="Center" Margin="0,423,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.132,0.462" Width="782" Height="39" />
             <DataGrid x:Name="dsetAssessmentResults" HorizontalAlignment="Center" IsReadOnly="True" Height="239" Margin="0,493,0,0" VerticalAlignment="Top" Width="780" AutoGenerateColumns="False" RenderTransformOrigin="0.492,-0.166" ItemsSource="{Binding ElementName=dataGridTextColumn, Mode=OneWay}" SelectionChanged="dsetStudents_SelectionChanged">

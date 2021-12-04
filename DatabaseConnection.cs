@@ -398,6 +398,7 @@ namespace Tafe_System
             {
                 bridgeKey = -1;
             }
+            command.Parameters.Clear();
             command.Dispose();
         }
 
@@ -428,6 +429,7 @@ namespace Tafe_System
             }
             finally
             {
+                command.Parameters.Clear();
                 command.Dispose();
             }
         }
@@ -453,6 +455,7 @@ namespace Tafe_System
             }
             finally
             {
+                command.Parameters.Clear();
                 command.Dispose();
             }
 
@@ -609,7 +612,10 @@ namespace Tafe_System
             }
             finally
             {
-                if (dispose) command.Dispose();
+                if (dispose) {
+                    command.Parameters.Clear();
+                    command.Dispose();
+                }
             }
         }
 
@@ -621,6 +627,7 @@ namespace Tafe_System
                 objDataAdapter.SelectCommand = command;
                 objDataAdapter.Fill(dataTable);
             }
+            command.Parameters.Clear();
             command.Dispose();
             return dataTable;
         }
@@ -663,6 +670,5 @@ namespace Tafe_System
             command.Parameters.Add(GenerateSQLParameter(primaryKey));
             return ExecuteStoredProcedureQuery(ref command, true, out rowsAffected);
         }
-
     }
 }

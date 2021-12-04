@@ -64,7 +64,7 @@ namespace Tafe_System
             locationParameters.AddParameter("@locationname", SqlDbType.VarChar, 100);
             locationParameters["@locationname"].value = addLLocationName.Text;
 
-            if (ValidationHelper.ValidateNoIntegers("Location Name ", addLLocationName.Text) && ValidationHelper.ValidateOnlyIntegers("Postcode", addLPostCode.Text))
+            if (ValidationHelper.ValidateNoIntegers("Location Name ", addLLocationName.Text) && ValidationHelper.ValidateIsPostCode("Postcode", addLPostCode.Text))
             {
                 databaseConnection.AddToDatabase(locationParameters, addLocationTextBoxElements, addLocationComboBoxElementsValue, null, null, "L", "Successfully added location", "tsp_AddLocation");
             }
@@ -73,7 +73,7 @@ namespace Tafe_System
 
         private void btnUpdateLocation_Click(object sender, RoutedEventArgs e)
         {
-            if (ValidationHelper.ValidateNoIntegers("Location Name", addLLocationName.Text) && ValidationHelper.ValidateOnlyIntegers("Postcode", addLPostCode.Text))
+            if (ValidationHelper.ValidateNoIntegers("Location Name", addLLocationName.Text) && ValidationHelper.ValidateIsPostCode("Postcode", addLPostCode.Text))
             {
                 databaseConnection.UpdateDatabase("tsp_UpdateLocationDetails", "tsp_GetLocationDetails", locationPrimaryKey, locationParameters, addLLocationName, updateLocationTextBoxElements, addLocationComboBoxElementsValue, null, null, "L", "Successfully updated location");
             }

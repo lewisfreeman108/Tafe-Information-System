@@ -96,7 +96,7 @@
                 <ComboBoxItem Content="Based Location"/>
                 <ComboBoxItem Content="Teaching Location"/>
             </ComboBox>
-            <Button x:Name="btnBack" Content="Back" HorizontalAlignment="Left" Margin="11,15,0,0" VerticalAlignment="Top" Width="150" TabIndex="3" Click="btnLogOut_Click"/>
+            <Button x:Name="btnBack" Content="Back" HorizontalAlignment="Left" Margin="11,15,0,0" VerticalAlignment="Top" Width="150" TabIndex="3" Click="btnMainMenu_Click"/>
             <CheckBox x:Name ="addTAdmin" Margin="548,974,0,0" VerticalAlignment ="Top" HorizontalAlignment="Left" HorizontalContentAlignment="Center" Content="Admin" Height="17" Width="70"/>
             <Button x:Name="btnSearchAllTeachers" Content="Search all teachers" HorizontalAlignment="Center" Margin="0,94,0,0" VerticalAlignment="Top" Width="222" TabIndex="3" RenderTransformOrigin="0.235,1.48" Click="btnSearchAllTeachers_Click"/>
         </Grid>

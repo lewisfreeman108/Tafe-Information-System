@@ -59,7 +59,7 @@ namespace Tafe_System
         private readonly WatermarkTextBox[] addAssessmentTextBoxElements;
         private readonly ComboBox[] addAssessmentComboBoxElementsValue;
 
-        //This constructor initializes the custom parameters for each entity and sets up the componenets
+        //This constructor initializes the custom parameters for each relevant entity and sets up the componenets
         public CourseInformation(DatabaseConnection databaseConnection, MainMenu mainMenu)
         {
             this.databaseConnection = databaseConnection;
@@ -107,10 +107,12 @@ namespace Tafe_System
         //Resets the form when the admin returns to the main menu
         public void Reset()
         {
+            //Resetting all tables to display no values
             dsetAssessments.ItemsSource = null;
             dsetCourses.ItemsSource = null;
             dsetUnitClusters.ItemsSource = null;
             dsetUnits.ItemsSource = null;
+            //Clearing fields
             databaseConnection.ClearUserInputFields(updateCCourseID, addCourseTextBoxElements, null, addCourseComboBoxElementsIndex, addCourseCheckBoxElements);
             databaseConnection.ClearUserInputFields(updateCLClusterID, addClusterTextBoxElements, null, null, null);
             databaseConnection.ClearUserInputFields(updateUUnitID, addUnitTextBoxElements, addUnitComboBoxElementsValue, null, null);
@@ -121,11 +123,12 @@ namespace Tafe_System
         private void btnSearchCourse_Click(object sender, RoutedEventArgs e)
         {
             courseParameters["@coursename"].value = txtBoxSearchCourse.Text;
+            //Gets a valid course with the supplied @coursename if it exists
             if (ValidationHelper.ValidateNoIntegers("Course name", txtBoxSearchCourse.Text))
             {
                 dsetCourses.ItemsSource = databaseConnection.GetTableFromDatabase("tsp_GetCourse", new KeyValuePair<string, SqlParameterDetails>("@coursename", courseParameters["@coursename"])).DefaultView;
             }
-
+            //resets child tables to show nothing
             dsetUnitClusters.ItemsSource = null;
             clusterTableLabel.Content = "[Select a course above or search for all]";
             dsetUnits.ItemsSource = null;
@@ -193,7 +196,7 @@ namespace Tafe_System
             }
         }
 
-        //Updates course within the database if all the input fields are valid and a valid course id is entered
+        //This method will update a row in the course entity with a valid primary key but only the columns that are specified (that the user has entered new data for)
         private void btnUpdateCourse_Click(object sender, RoutedEventArgs e)
         {
             if (ValidationHelper.ValidateOnlyIntegers("Course ID", updateCCourseID.Text) && ValidationHelper.ValidateNoIntegers("Course Name ", addCCourseName.Text) && ValidationHelper.ValidateOnlyIntegers("Cost", addCCost.Text))
@@ -211,7 +214,7 @@ namespace Tafe_System
             }
         }
 
-        //Updates cluster within the database if all the input fields are valid and a valid cluster id is entered
+        //This method will update a row in the unitcluster entity with a valid primary key but only the columns that are specified (that the user has entered new data for)
         private void btnUpdateCluster_Click(object sender, RoutedEventArgs e)
         {
             if (ValidationHelper.ValidateNoIntegers("Cluster ID", updateCLClusterID.Text) && ValidationHelper.ValidateNoIntegers("Cluster Name ", addCLClusterName.Text) && ValidationHelper.ValidateOnlyIntegers("Cost", addCLCost.Text))
@@ -229,7 +232,7 @@ namespace Tafe_System
             }
         }
 
-        //Updates unit within the database if all the input fields are valid and a valid unit id is entered
+        //This method will update a row in the unit entity with a valid primary key but only the columns that are specified (that the user has entered new data for)
         private void btnUpdateUnit_Click(object sender, RoutedEventArgs e)
         {
             if (ValidationHelper.ValidateNoIntegers("Unit ID", updateUUnitID.Text) && ValidationHelper.ValidateNoIntegers("Unit Name ", addUUnitName.Text) && ValidationHelper.ValidateOnlyIntegers("Cost", addUCost.Text))
@@ -247,7 +250,7 @@ namespace Tafe_System
             }
         }
 
-        //Updates assessment within the database if all the input fields are valid and a valid assessment id is entered
+        //This method will update a row in the assessment entity with a valid primary key but only the columns that are specified (that the user has entered new data for)
         private void btnUpdateAssessment_Click(object sender, RoutedEventArgs e)
         {
             if (ValidationHelper.ValidateOnlyIntegers("Assessment ID", updateAAssessmentID.Text) && ValidationHelper.ValidateNoIntegers("Assessment Title", addAAssessmentTitle.Text) && ValidationHelper.ValidateIsFileName("File Name ", addAFileName.Text))
@@ -310,7 +313,7 @@ namespace Tafe_System
             }
         }
 
-        //Handles the values of the selected course's child tables
+        //Handles the values of the selected course's child tables, showing all the unitclusters linked to the selected course
         private void dsetCourses_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             databaseConnection.AutoFillExistingElements(dsetCourses, updateCCourseID, ref coursePrimaryKey, courseParameters, "tsp_GetCourseDetails", "C", addCourseTextBoxElements, null, addCourseComboBoxElementsIndex, addCourseCheckBoxElements);
@@ -325,7 +328,7 @@ namespace Tafe_System
             databaseConnection.ClearUserInputFields(updateAAssessmentID, addAssessmentTextBoxElements, addAssessmentComboBoxElementsValue, null, null);
         }
 
-        //Handles the values of the selected unitcluster's related tables
+        //Handles the values of the selected unitcluster's related tables, showing the units linked to the selected unitcluster and resetting the course table
         private void dsetUnitCluster_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             databaseConnection.AutoFillExistingElements(dsetUnitClusters, updateCLClusterID, ref clusterPrimaryKey, clusterParameters, "tsp_GetClusterDetails", "CL", addClusterTextBoxElements, null, null, null);
@@ -338,7 +341,7 @@ namespace Tafe_System
             databaseConnection.ClearUserInputFields(updateAAssessmentID, addAssessmentTextBoxElements, addAssessmentComboBoxElementsValue, null, null);
         }
 
-        //Handles the values of the selected unit's related tables
+        //Handles the values of the selected units related tables, showing the assessments linked to the selected unit and resetting the course and unitcluster tables
         private void dsetUnits_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             databaseConnection.AutoFillExistingElements(dsetUnits, updateUUnitID, ref unitPrimaryKey, unitParameters, "tsp_GetUnitDetails", "U", addUnitTextBoxElements, addUnitComboBoxElementsValue, null, null);
