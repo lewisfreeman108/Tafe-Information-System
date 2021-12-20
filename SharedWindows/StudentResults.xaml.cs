@@ -15,8 +15,15 @@ namespace Tafe_System
         private readonly MainMenu mainMenu;
 
         private readonly SearchStudentsMethods searchStudentMethods;
-        private readonly KeyValuePair<string, SqlParameterDetails> studentPrimaryKey = new KeyValuePair<string, SqlParameterDetails>("@studentid", new SqlParameterDetails(SqlDbType.Int, null));
         private readonly KeyValuePair<string, SqlParameterDetails> teacherPrimaryKey = new KeyValuePair<string, SqlParameterDetails>("@teacherid", new SqlParameterDetails(SqlDbType.Int, null));
+
+        private readonly KeyValuePair<string, SqlParameterDetails> studentPrimaryKey = new KeyValuePair<string, SqlParameterDetails>("@studentid", new SqlParameterDetails(SqlDbType.Int, null));
+        private readonly SqlParameterDictionary resultParameters = new SqlParameterDictionary();
+
+        private readonly KeyValuePair<string, SqlParameterDetails> coursePrimaryKey = new KeyValuePair<string, SqlParameterDetails>("@courseid", new SqlParameterDetails(SqlDbType.Int, null));
+        private readonly KeyValuePair<string, SqlParameterDetails> clusterPrimaryKey = new KeyValuePair<string, SqlParameterDetails>("@clusterid", new SqlParameterDetails(SqlDbType.Int, null));
+        private readonly KeyValuePair<string, SqlParameterDetails> unitPrimaryKey = new KeyValuePair<string, SqlParameterDetails>("@unitid", new SqlParameterDetails(SqlDbType.Int, null));
+
 
         public StudentResults(DatabaseConnection databaseConnection, MainMenu mainMenu)
         {
@@ -26,12 +33,14 @@ namespace Tafe_System
             searchStudentMethods = new SearchStudentsMethods(databaseConnection);
             InitializeComponent();
             searchSemester.IsEnabled = false;
+            resultParameters.AddParameter("@studentid", SqlDbType.Int);
         }
 
         public void setTeacher(string teacherID)
         {
             teacherPrimaryKey.Value.value = teacherID;
             searchStudentMethods.SetTeacher(teacherID);
+            studentLabel.Content = "My Students";
         }
 
         public void Reset()
@@ -97,15 +106,31 @@ namespace Tafe_System
             searchStudentMethods.SearchType_SelectionChanged(txtBoxSearchByID, txtBoxSearchByName, searchType, searchSemester);
         }
 
-
         private void dsetStudents_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-
-            databaseConnection.NewDataGridSelection(dsetStudents, dsetAssessmentResults, 0, studentPrimaryKey, "tsp_GetAssessmentResults");
-            databaseConnection.NewDataGridSelection(dsetStudents, dsetUnitResults, 0, studentPrimaryKey, "tsp_GetUnitResults");
-            databaseConnection.NewDataGridSelection(dsetStudents, dsetClusterResults, 0, studentPrimaryKey, "tsp_GetUnitClusterResults");
+            studentPrimaryKey.Value.value = databaseConnection.GetPrimaryValueFromSelection(dsetStudents, 0);
             databaseConnection.NewDataGridSelection(dsetStudents, dsetCourseResults, 0, studentPrimaryKey, "tsp_GetCourseResults");
+        }
 
+        private void ResetResultParameters(DataGrid dsetSelected, DataGrid dsetToChange, KeyValuePair<string, SqlParameterDetails> primaryKey, string query)
+        {
+            resultParameters.Clear();
+            resultParameters.AddParameter("@studentid", studentPrimaryKey.Value.value, SqlDbType.Int);
+            databaseConnection.NewDataGridSelection(dsetSelected, dsetToChange, 2, primaryKey, resultParameters, query);
+        }
+
+        private void dsetCourses_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ResetResultParameters(dsetCourseResults, dsetClusterResults, coursePrimaryKey, "tsp_GetUnitClusterResults");
+        }
+
+        private void dsetClusters_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ResetResultParameters(dsetClusterResults, dsetUnitResults, clusterPrimaryKey, "tsp_GetUnitResults");
+        }
+        private void dsetUnits_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ResetResultParameters(dsetUnitResults, dsetAssessmentResults, unitPrimaryKey, "tsp_GetAssessmentResults");
         }
 
         private void btnLogOut_Click(object sender, RoutedEventArgs e)

@@ -46,7 +46,7 @@
             <extToolkit:WatermarkTextBox x:Name ="addSSuburb" Watermark="Suburb" Width="116" Height="23" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="412,841,0,0" />
             <extToolkit:WatermarkTextBox x:Name ="addSPostcode" Watermark="Postcode" Width="116" Height="23" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="534,841,0,0" MaxLength="4"/>
             <Button x:Name="btnAddStudent" Content="Add" Width="74" Height="20" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="434,879,0,0" TabIndex="3" Click="btnAddStudent_Click" RenderTransformOrigin="0.523,1.926"/>
-            <extToolkit:WatermarkTextBox x:Name ="addSEmail" Watermark="Email" Width="116" Height="23" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="534,803,0,0" />
+            <extToolkit:WatermarkTextBox x:Name ="addSPersonalEmail" Watermark="Personal Email" Width="116" Height="23" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="534,803,0,0" />
             <extToolkit:WatermarkTextBox x:Name ="addSPassword" Watermark="Password" Width="116" Height="23" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="290,878,0,0" />
             <ComboBox x:Name="addSState" Width="116" Height="23" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="656,841,0,0" SelectedValuePath="Content">
                 <ComboBoxItem IsSelected="True" Content="NSW"/>
@@ -86,7 +86,8 @@
                 <DataGrid.Columns>
                     <DataGridTextColumn x:Name="dataGridTextColumn" Header="Student ID" Width="*" Binding="{Binding studentid}"/>
                     <DataGridTextColumn Header="Name" Width="*" Binding ="{Binding name}"/>
-                    <DataGridTextColumn Header="Email" Width="*" Binding="{Binding email}"/>
+                    <DataGridTextColumn Header="User Email" Width="*" Binding="{Binding useremail}"/>
+                    <DataGridTextColumn Header="Personal Email" Width="*" Binding="{Binding personalemail}"/>
                     <DataGridTextColumn Header="Mobile" Width="*" Binding="{Binding mobile}"/>
                     <DataGridTextColumn Header="Address" Width="*" Binding="{Binding address}"/>
                 </DataGrid.Columns>

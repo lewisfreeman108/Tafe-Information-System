@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Tafe_System"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit" x:Class="Tafe_System.Offering"
         mc:Ignorable="d"
-        Title="Offering" Height="1107" Width="859">
+        Title="Offering" Height="948" Width="859">
     <ScrollViewer Margin="5,5,0,5" CanContentScroll="False"
               HorizontalScrollBarVisibility="Auto">
         <Grid Width="802">
@@ -15,12 +15,14 @@
             <DataGrid x:Name="dsetOfferings" HorizontalAlignment="Center" IsReadOnly="True" Height="239" Margin="0,114,0,0" VerticalAlignment="Top" Width="780" AutoGenerateColumns="False" RenderTransformOrigin="0.492,-0.166" ItemsSource="{Binding ElementName=dataGridTextColumn, Mode=OneWay}" SelectionChanged="dsetOfferings_SelectionChanged">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Offering ID" Width=".6*" Binding="{Binding offeringid}"/>
+                    <DataGridTextColumn Header="Course ID" Width=".6*" Binding="{Binding courseid}"/>
                     <DataGridTextColumn Header="Location Name" Width="2*" Binding ="{Binding locationname}"/>
                     <DataGridTextColumn Header="Offering Type" Width="*" Binding="{Binding offeringtype}"/>
                     <DataGridTextColumn Header="Year" Width=".5*" Binding="{Binding year}"/>
                     <DataGridTextColumn Header="Semester" Width=".5*" Binding="{Binding semester}"/>
                     <DataGridTextColumn Header="Start Date" Width=".6*" Binding="{Binding startdate}"/>
                     <DataGridTextColumn Header="End Date" Width=".6*" Binding="{Binding enddate}"/>
+                    <DataGridTextColumn Header="Offering Status" Width="*" Binding="{Binding offeringstatus}"/>
                 </DataGrid.Columns>
             </DataGrid>
             <Button x:Name="btnSearchWithFilters" Content="Search with filters" HorizontalAlignment="Left" Margin="434,62,0,0" VerticalAlignment="Top" Width="130" Click="btnSearchWithFilters_Click" TabIndex="3"/>
@@ -51,7 +53,7 @@
             <xctk:WatermarkTextBox x:Name ="updateOOfferingID" Watermark="Offering ID" Width="117" Height="25" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="218,506,0,0" />
             <Button x:Name="btnUpdateOffering" Content="Update" Width="74" Height="20" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="360,509,0,0" TabIndex="3" RenderTransformOrigin="0.523,1.926" Click="btnUpdateOffering_Click"/>
             <Button x:Name="btnRemoveOffering" Content="Remove" Width="74" Height="23" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="482,507,0,0" TabIndex="3" RenderTransformOrigin="0.523,1.926" Click="btnRemoveOffering_Click"/>
-            <xctk:WatermarkTextBox x:Name ="addTCourseUnitClusterID" Watermark="CourseUnitClusterID" Width="116" Height="23" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="278,800,0,0" />
+            <xctk:WatermarkTextBox x:Name ="addTUnitClusterID" Watermark="UnitClusterID" Width="116" Height="23" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="278,800,0,0" />
             <xctk:WatermarkTextBox x:Name ="addTBuilding" Watermark="Building" Width="117" Height="23" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="522,763,0,0" />
             <xctk:WatermarkTextBox x:Name ="addTRoom" Watermark="Room" Width="116" Height="23" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="522,800,0,0" />
             <xctk:WatermarkTextBox x:Name ="addTStartTime" Watermark="Start Time hh:mm" Width="117" Height="23" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="155,763,0,0"/>
@@ -73,11 +75,6 @@
             <Button x:Name="btnRemoveTimetableItem" Content="Remove" HorizontalAlignment="Left" Margin="543,840,0,0" VerticalAlignment="Top" Width="74" TabIndex="3" RenderTransformOrigin="0.5,0.5" Click="btnRemoveTimetableItem_Click" />
 
             <Label Content="Timetable Item (Select Course Offering above)" HorizontalContentAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Top" RenderTransformOrigin="-0.132,0.462" Width="496" Height="27" Margin="0,544,0,0"/>
-            <xctk:WatermarkTextBox x:Name ="findBCourseName" Watermark="Course Name" Width="116" Height="23" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="284,941,0,0" />
-            <xctk:WatermarkTextBox x:Name ="findBClusterName" Watermark="Cluster Name" Width="116" Height="23" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="406,941,0,0" />
-            <Button x:Name="btnFindBClassInformation" Content="Find Bridge ID" HorizontalAlignment="Left" Margin="350,1014,0,0" VerticalAlignment="Top" Width="94" TabIndex="3" RenderTransformOrigin="0.5,0.5" Click="btnFindBClassInformation_Click"/>
-            <TextBlock x:Name ="FindBCourseUnitClusterID" Width="238" VerticalAlignment="Top" TextWrapping="WrapWithOverflow" IsEnabled="False" RenderTransformOrigin="-0.132,0.462" TextAlignment="Center" HorizontalAlignment="Left" Text="CourseUnitClusterID:" Height="40" Margin="284,969,0,0"/>
-            <TextBlock Width="782" VerticalAlignment="Top" RenderTransformOrigin="-0.132,0.462" Margin="6,890,0,0" TextAlignment ="Center" Height="46" HorizontalAlignment="Left"><Run Text="Find Course Unit Cluster ID"/><LineBreak/><Run Text="Enter a cluster name AND a course name"/></TextBlock>
             <DataGrid x:Name="dsetTimetableItem" HorizontalAlignment="Left" IsReadOnly="True" Height="176" Margin="8,544,0,0" VerticalAlignment="Top" Width="780" AutoGenerateColumns="False" RenderTransformOrigin="0.492,-0.166" ItemsSource="{Binding ElementName=dataGridTextColumn, Mode=OneWay}" SelectionChanged="dsetTimetableItem_SelectionChanged">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Timetable ID" Width=".6*" Binding="{Binding timetableid}"/>
@@ -92,6 +89,13 @@
                 </DataGrid.Columns>
             </DataGrid>
             <Button x:Name="btnBack" Content="Back" HorizontalAlignment="Left" Margin="11,13,0,0" VerticalAlignment="Top" Width="150" TabIndex="3" Click="btnLogOut_Click"/>
+            <ComboBox x:Name="addOOfferingStatus" Width="116" Height="23" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="218,469,0,0" SelectedValuePath="Content" SelectionChanged="addEEnrolmenttype_SelectionChanged">
+                <ComboBoxItem IsSelected="True" Content="Not Yet Begun"/>
+                <ComboBoxItem Content="In Progress"/>
+                <ComboBoxItem Content="Concluded"/>
+                <ComboBoxItem Content="Part Time"/>
+                <ComboBoxItem Content="Online"/>
+            </ComboBox>
 
         </Grid>
     </ScrollViewer>

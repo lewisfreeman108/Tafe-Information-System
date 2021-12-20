@@ -23,7 +23,7 @@ namespace Tafe_System
 
     public partial class CourseInformation : Window
     {
-        
+
         private readonly DatabaseConnection databaseConnection;
         private readonly MainMenu mainMenu;
 
@@ -39,7 +39,6 @@ namespace Tafe_System
 
         private readonly WatermarkTextBox[] addCourseTextBoxElements;
         private readonly ComboBox[] addCourseComboBoxElementsIndex;
-        private readonly CheckBox[] addCourseCheckBoxElements;
 
         private KeyValuePair<string, SqlParameterDetails> clusterPrimaryKey = new KeyValuePair<string, SqlParameterDetails>("@clusterid", new SqlParameterDetails(SqlDbType.Int, null));
         private readonly SqlParameterDictionary clusterParameters = new SqlParameterDictionary();
@@ -65,21 +64,15 @@ namespace Tafe_System
             this.databaseConnection = databaseConnection;
             this.mainMenu = mainMenu;
             InitializeComponent();
-            
+
 
             courseParameters.AddParameter("@coursename", SqlDbType.VarChar, 100);
             courseParameters.AddParameter("@description", SqlDbType.VarChar, 300);
             courseParameters.AddParameter("@cost", SqlDbType.Int);
-            courseParameters.AddParameter("@parttime", SqlDbType.Bit);
-            courseParameters.AddParameter("@fulltime", SqlDbType.Bit);
-            courseParameters.AddParameter("@online", SqlDbType.Bit);
             courseParameters.AddParameter("@aqflevel", SqlDbType.SmallInt);
-            courseParameters.AddParameter("@semester1", SqlDbType.Bit);
-            courseParameters.AddParameter("@semester2", SqlDbType.Bit);
 
             addCourseTextBoxElements = new WatermarkTextBox[] { addCCourseName, addCCost, addCDescription };
             addCourseComboBoxElementsIndex = new ComboBox[] { addCAQFLevel };
-            addCourseCheckBoxElements = new CheckBox[] { addCPartTime, addCFullTime, addCOnline, addCSemester1, addCSemester2 };
 
             clusterParameters.AddParameter("@clustername", SqlDbType.VarChar, 50);
             clusterParameters.AddParameter("@description", SqlDbType.VarChar, 300);
@@ -113,7 +106,7 @@ namespace Tafe_System
             dsetUnitClusters.ItemsSource = null;
             dsetUnits.ItemsSource = null;
             //Clearing fields
-            databaseConnection.ClearUserInputFields(updateCCourseID, addCourseTextBoxElements, null, addCourseComboBoxElementsIndex, addCourseCheckBoxElements);
+            databaseConnection.ClearUserInputFields(updateCCourseID, addCourseTextBoxElements, null, addCourseComboBoxElementsIndex, null);
             databaseConnection.ClearUserInputFields(updateCLClusterID, addClusterTextBoxElements, null, null, null);
             databaseConnection.ClearUserInputFields(updateUUnitID, addUnitTextBoxElements, addUnitComboBoxElementsValue, null, null);
             databaseConnection.ClearUserInputFields(updateAAssessmentID, addAssessmentTextBoxElements, addAssessmentComboBoxElementsValue, null, null);
@@ -192,7 +185,7 @@ namespace Tafe_System
         {
             if (ValidationHelper.ValidateNoIntegers("Course Name ", addCCourseName.Text) && ValidationHelper.ValidateOnlyIntegers("Cost", addCCost.Text))
             {
-                databaseConnection.AddToDatabase(courseParameters, addCourseTextBoxElements, null, addCourseComboBoxElementsIndex, addCourseCheckBoxElements, "C", "Successfully added course", "tsp_AddCourse");
+                databaseConnection.AddToDatabase(courseParameters, addCourseTextBoxElements, null, addCourseComboBoxElementsIndex, null, "C", "Successfully added course", "tsp_AddCourse");
             }
         }
 
@@ -201,7 +194,7 @@ namespace Tafe_System
         {
             if (ValidationHelper.ValidateOnlyIntegers("Course ID", updateCCourseID.Text) && ValidationHelper.ValidateNoIntegers("Course Name ", addCCourseName.Text) && ValidationHelper.ValidateOnlyIntegers("Cost", addCCost.Text))
             {
-                databaseConnection.UpdateDatabase("tsp_UpdateCourseDetails", "tsp_GetCourseDetails", coursePrimaryKey, courseParameters, updateCCourseID, addCourseTextBoxElements, null, addCourseComboBoxElementsIndex, addCourseCheckBoxElements, "C", "Successfully updated course");
+                databaseConnection.UpdateDatabase("tsp_UpdateCourseDetails", "tsp_GetCourseDetails", coursePrimaryKey, courseParameters, updateCCourseID, addCourseTextBoxElements, null, addCourseComboBoxElementsIndex, null, "C", "Successfully updated course");
             }
         }
 
@@ -316,7 +309,7 @@ namespace Tafe_System
         //Handles the values of the selected course's child tables, showing all the unitclusters linked to the selected course
         private void dsetCourses_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            databaseConnection.AutoFillExistingElements(dsetCourses, updateCCourseID, ref coursePrimaryKey, courseParameters, "tsp_GetCourseDetails", "C", addCourseTextBoxElements, null, addCourseComboBoxElementsIndex, addCourseCheckBoxElements);
+            databaseConnection.AutoFillExistingElements(dsetCourses, updateCCourseID, ref coursePrimaryKey, courseParameters, "tsp_GetCourseDetails", "C", addCourseTextBoxElements, null, addCourseComboBoxElementsIndex, null);
             clusterTableLabel.Content = "Clusters for 'Course ID' = " + coursePrimaryKey.Value.value;
             databaseConnection.NewDataGridSelection(dsetCourses, dsetUnitClusters, 0, coursePrimaryKey, "tsp_GetUnitClustersForCourse");
             dsetUnits.ItemsSource = null;
@@ -361,7 +354,7 @@ namespace Tafe_System
         {
             if (ValidationHelper.ValidateOnlyIntegers("Course ID", updateCCourseID.Text))
             {
-                databaseConnection.RemoveRow("tsp_RemoveCourse", ref coursePrimaryKey, "Successfully removed course", updateCCourseID, addCourseTextBoxElements, null, addCourseComboBoxElementsIndex, addCourseCheckBoxElements);
+                databaseConnection.RemoveRow("tsp_RemoveCourse", ref coursePrimaryKey, "Successfully removed course", updateCCourseID, addCourseTextBoxElements, null, addCourseComboBoxElementsIndex, null);
             }
         }
 

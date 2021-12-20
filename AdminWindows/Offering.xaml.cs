@@ -37,8 +37,8 @@ namespace Tafe_System
         private readonly WatermarkTextBox[] addTimetableItemTextboxElements;
         private readonly ComboBox[] addTimetableItemComboBoxElementsValue;
 
-        private readonly KeyValuePair<string, SqlParameterDetails> courseAlternateKey = new KeyValuePair<string, SqlParameterDetails>("@coursename", new SqlParameterDetails(SqlDbType.VarChar, 100));
-        private readonly KeyValuePair<string, SqlParameterDetails> clusterAlternateKey = new KeyValuePair<string, SqlParameterDetails>("@clustername", new SqlParameterDetails(SqlDbType.VarChar, 100));
+        //private readonly KeyValuePair<string, SqlParameterDetails> courseAlternateKey = new KeyValuePair<string, SqlParameterDetails>("@coursename", new SqlParameterDetails(SqlDbType.VarChar, 100));
+        //private readonly KeyValuePair<string, SqlParameterDetails> clusterAlternateKey = new KeyValuePair<string, SqlParameterDetails>("@clustername", new SqlParameterDetails(SqlDbType.VarChar, 100));
 
 
         public Offering(DatabaseConnection databaseConnection, MainMenu mainMenu)
@@ -52,13 +52,14 @@ namespace Tafe_System
             offeringParameters.Add("@offeringtype", new SqlParameterDetails(SqlDbType.VarChar, 15));
             offeringParameters.AddParameter("@startdate", SqlDbType.Char, 10);
             offeringParameters.AddParameter("@enddate", SqlDbType.Char, 10);
+            offeringParameters.Add("@offeringstatus", new SqlParameterDetails(SqlDbType.VarChar, 15));
 
             addOfferingTextBoxElements = new WatermarkTextBox[] { addOCourseID, addOLocationName, addOStartDate, addOEndDate };
             addOfferingComboBoxElementsIndex = new ComboBox[] { addOSemester };
-            addOfferingComboBoxElementsValue = new ComboBox[] { addOOfferingType };
+            addOfferingComboBoxElementsValue = new ComboBox[] { addOOfferingType, addOOfferingStatus };
 
             timetableParameters.AddParameter("@offeringid", SqlDbType.Int);
-            timetableParameters.AddParameter("@courseunitclusterid", SqlDbType.Int);
+            timetableParameters.AddParameter("@unitclusterid", SqlDbType.Int);
             timetableParameters.AddParameter("@teacherid", SqlDbType.Int);
             timetableParameters.AddParameter("@starttime", SqlDbType.VarChar, 7);
             timetableParameters.AddParameter("@endtime", SqlDbType.VarChar, 7);
@@ -66,7 +67,7 @@ namespace Tafe_System
             timetableParameters.AddParameter("@room", SqlDbType.VarChar, 10);
             timetableParameters.AddParameter("@dayrunning", SqlDbType.VarChar, 10);
 
-            addTimetableItemTextboxElements = new WatermarkTextBox[] { addTCourseUnitClusterID, addTTeacherID, addTBuilding, addTRoom, addTStartTime, addTEndTime };
+            addTimetableItemTextboxElements = new WatermarkTextBox[] { addTUnitClusterID, addTTeacherID, addTBuilding, addTRoom, addTStartTime, addTEndTime };
             addTimetableItemComboBoxElementsValue = new ComboBox[] { addTDayRunning };
 
             this.databaseConnection = databaseConnection;
@@ -95,7 +96,7 @@ namespace Tafe_System
                 }
                 else
                 {
-                    addOLocationName.Text = "";
+                    addOLocationName.Text = string.Equals(addOLocationName.Text, "NULLVALUE") ? "" : addOLocationName.Text;
                     addOLocationName.IsEnabled = true;
                     addOLocationName.Visibility = Visibility.Visible;
                 }
@@ -109,7 +110,7 @@ namespace Tafe_System
 
             if (ValidationHelper.ValidateOnlyIntegers("Course ID", addOCourseID.Text) && ValidationHelper.ValidateNoIntegers("Location Name", addOLocationName.Text) && ValidationHelper.ValidateIsDate("Start Date", addOStartDate.Text) && ValidationHelper.ValidateIsDate("End Date", addOEndDate.Text))
             {
-                bool offeringTypeValidated = false;
+                /*bool offeringTypeValidated = false;
                 switch (addOOfferingType.SelectedIndex)
                 {
                     case 0:
@@ -136,7 +137,7 @@ namespace Tafe_System
                             return;
                         }
                         break;
-                }
+                }*/
                 databaseConnection.AddToDatabase(offeringParameters, addOfferingTextBoxElements, addOfferingComboBoxElementsValue, addOfferingComboBoxElementsIndex, null, "O", "Successfully added Offering", "tsp_AddOffering");
             }
         }
@@ -188,9 +189,9 @@ namespace Tafe_System
                 }
                 else
                 {
-                    addTBuilding.Text = "";
+                    addTBuilding.Text = string.Equals(addTBuilding.Text, "NULLVALUE") ? "" : addTBuilding.Text;
                     addTBuilding.Visibility = Visibility.Visible;
-                    addTRoom.Text = "";
+                    addTRoom.Text = string.Equals(addTRoom.Text, "NULLVALUE") ? "" : addTRoom.Text;
                     addTRoom.Visibility = Visibility.Visible;
                 }
             }
@@ -214,18 +215,6 @@ namespace Tafe_System
             databaseConnection.RemoveRow("tsp_RemoveTimetableItem", ref timetableitemPrimaryKey, "Successfully removed timetable item", updateTTimetableID, addTimetableItemTextboxElements, addTimetableItemComboBoxElementsValue, null, null);
         }
 
-        private void btnFindBClassInformation_Click(object sender, RoutedEventArgs e)
-        {
-            string courseName = findBCourseName.Text;
-            string clusterName = findBClusterName.Text;
-
-            clusterAlternateKey.Value.value = clusterName;
-            courseAlternateKey.Value.value = courseName;
-
-            if (!(string.IsNullOrWhiteSpace(courseName) || string.IsNullOrWhiteSpace(clusterName)))
-                FindBCourseUnitClusterID.Text = "CourseUnitClusterID:\n" + databaseConnection.FindBridge("tsp_FindCourseUnitClusterID", courseAlternateKey, clusterAlternateKey);
-        }
-
         private void dsetTimetableItem_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             databaseConnection.AutoFillExistingElements(dsetTimetableItem, updateTTimetableID, ref timetableitemPrimaryKey, timetableParameters, "tsp_GetTimetableItemDetails", "T", addTimetableItemTextboxElements, addTimetableItemComboBoxElementsValue, null, null);
@@ -233,7 +222,7 @@ namespace Tafe_System
 
         private void btnLogOut_Click(object sender, RoutedEventArgs e)
         {
-            this.Hide();
+            Hide();
             Reset();
             mainMenu.Show();
         }

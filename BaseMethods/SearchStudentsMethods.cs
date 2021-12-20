@@ -13,7 +13,7 @@ namespace Tafe_System.AdminWindows
 
         private readonly List<SqlParameter> searchParameters = new List<SqlParameter>();
 
-        private SqlParameter teacherID = new SqlParameter("@teacherid", SqlDbType.Int);
+        private readonly SqlParameter teacherID = new SqlParameter("@teacherid", SqlDbType.Int);
 
         //TODO: Fix the search methods
         public SearchStudentsMethods(DatabaseConnection databaseConnection)

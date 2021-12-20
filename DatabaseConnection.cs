@@ -19,6 +19,9 @@ namespace Tafe_System
         private readonly KeyValuePair<string, SqlParameterDetails> saltParameter = new KeyValuePair<string, SqlParameterDetails>("@salt", new SqlParameterDetails(SqlDbType.VarChar, 255));
         private readonly KeyValuePair<string, SqlParameterDetails> enrolmentValidationResult = new KeyValuePair<string, SqlParameterDetails>("@enrolmentValidationResult", new SqlParameterDetails(SqlDbType.VarChar, 100));
 
+        private readonly KeyValuePair<string, SqlParameterDetails> userEmail = new KeyValuePair<string, SqlParameterDetails>("@useremail", new SqlParameterDetails(SqlDbType.VarChar, 155));
+        private readonly KeyValuePair<string, SqlParameterDetails> studentorteacheridfromuseremail = new KeyValuePair<string, SqlParameterDetails>("@studentorteacherid", new SqlParameterDetails(SqlDbType.Int, null));
+
         public DatabaseConnection()
         {
             connection = new SqlConnection("server=" + Environment.MachineName + ";" + "database=tafesystem;Trusted_Connection=yes");
@@ -34,7 +37,6 @@ namespace Tafe_System
                     break;
                 case 2627:
                     System.Windows.MessageBox.Show("An alternate or primary key was duplicate:\n" + er.Errors[0].Message);
-                    System.Diagnostics.Debug.WriteLine("An alternate or primary key was duplicate:\n" + er.Errors[0].Message);
                     break;
                 default:
                     System.Windows.MessageBox.Show("An unknown error has occured\n" + er.Errors[0].Number + ": " + er.Errors[0].Message);
@@ -63,36 +65,41 @@ namespace Tafe_System
             return GetValueFromTable(ref command, saltParameter);
         }
 
-        public string HashedPassword(string password, string salt)
+        public string HashedPassword(string hash, string salt)
         {
             byte[] saltBytes = Convert.FromBase64String(salt);
             return Convert.ToBase64String(KeyDerivation.Pbkdf2(
-            password: password,
+            password: hash,
             salt: saltBytes,
             prf: KeyDerivationPrf.HMACSHA256,
             iterationCount: 100000,
             numBytesRequested: 256 / 8));
         }
 
-
-        public int LogUserIn(string userID, string password)
+        public string GetStudentOrTeacherIDFromUserEmail(string userEmail)
         {
-            return VerifyPassword("Student", userID, password) != 0 ? 1 : VerifyPassword("Teacher", userID, password);
+            this.userEmail.Value.value = userEmail;
+            return GetValueFromTable("tsp_GetStudentOrTeacherIDFromUserEmail", this.userEmail, studentorteacheridfromuseremail);
         }
 
-        private int VerifyPassword(string userType, string userID, string password)
+        public int LogUserIn(string userID, string hash)
         {
-            if (!string.IsNullOrWhiteSpace(userID) && !string.IsNullOrWhiteSpace(password))
+            return Verifyhash("Student", userID, hash) != 0 ? 1 : Verifyhash("Teacher", userID, hash);
+        }
+
+        private int Verifyhash(string userType, string userID, string hash)
+        {
+            if (!string.IsNullOrWhiteSpace(userID) && !string.IsNullOrWhiteSpace(hash))
             {
                 string salt = GetSalt(userType, userID);
-                string hashedPassword = HashedPassword(password, salt);
+                string hashedhash = HashedPassword(hash, salt);
 
-                using SqlCommand command = new SqlCommand("tsp_VerifyPassword", connection)
+                using SqlCommand command = new SqlCommand("tsp_Verifyhash", connection)
                 {
                     CommandType = CommandType.StoredProcedure
                 };
                 command.Parameters.Add("@id", SqlDbType.Int).Value = userID;
-                command.Parameters.Add("@password", SqlDbType.VarChar, 255).Value = hashedPassword;
+                command.Parameters.Add("@hash", SqlDbType.VarChar, 255).Value = hashedhash;
                 command.Parameters.Add("@completed", SqlDbType.Int).Direction = ParameterDirection.Output;
                 try
                 {
@@ -109,24 +116,24 @@ namespace Tafe_System
             return 0;
         }
 
-        public bool AddUserToDatabase(SqlParameterDictionary parameterDictionary, string password, WatermarkTextBox[] textBoxElements, ComboBox[] comboBoxElementsValue, CheckBox[] checkBoxElements, string removableSuffice, string successMessage, string addQuery)
+        public bool AddUserToDatabase(SqlParameterDictionary parameterDictionary, string hash, WatermarkTextBox[] textBoxElements, ComboBox[] comboBoxElementsValue, CheckBox[] checkBoxElements, string removableSuffice, string successMessage, string addQuery)
         {
-            if (string.IsNullOrWhiteSpace(password))
+            if (string.IsNullOrWhiteSpace(hash))
             {
-                System.Windows.MessageBox.Show("Please enter a valid password");
+                System.Windows.MessageBox.Show("Please enter a valid hash");
                 return false;
             }
             string salt = CreateSalt();
             parameterDictionary["@salt"].value = salt;
-            parameterDictionary["@password"].value = HashedPassword(password, salt);
+            parameterDictionary["@hash"].value = HashedPassword(hash, salt);
 
             return AddToDatabase(parameterDictionary, textBoxElements, comboBoxElementsValue, null, checkBoxElements, removableSuffice, successMessage, addQuery);
         }
 
-        public bool UpdateUserInDatabase(KeyValuePair<string, SqlParameterDetails> primaryKey, SqlParameterDictionary parameterDictionary, string password, string getSaltQuery, WatermarkTextBox primaryKeyTextBox, WatermarkTextBox[] textboxElements, ComboBox[] comboBoxElementsValue, string removableSuffice, string commandQueryGetDetails, string commandQueryUpdateDetails, string successMessage)
+        public bool UpdateUserInDatabase(KeyValuePair<string, SqlParameterDetails> primaryKey, SqlParameterDictionary parameterDictionary, string hash, string getSaltQuery, WatermarkTextBox primaryKeyTextBox, WatermarkTextBox[] textboxElements, ComboBox[] comboBoxElementsValue, string removableSuffice, string commandQueryGetDetails, string commandQueryUpdateDetails, string successMessage)
         {
             primaryKey.Value.value = primaryKeyTextBox.Text;
-            if (!string.IsNullOrWhiteSpace(password)) parameterDictionary["@password"].value = CreateNewPasswordForUser(password, primaryKey, getSaltQuery);
+            if (!string.IsNullOrWhiteSpace(hash)) parameterDictionary["@hash"].value = CreateNewhashForUser(hash, primaryKey, getSaltQuery);
 
             return UpdateDatabase(commandQueryUpdateDetails, commandQueryGetDetails, primaryKey, parameterDictionary, primaryKeyTextBox, textboxElements, comboBoxElementsValue, null, null, removableSuffice, successMessage);
         }
@@ -275,10 +282,11 @@ namespace Tafe_System
             try
             {
 
-                if( command.ExecuteNonQuery() > 0)
+                if (command.ExecuteNonQuery() > 0)
                 {
                     return true;
-                } else
+                }
+                else
                 {
                     System.Windows.MessageBox.Show("Could not update " + primaryKey.Key + " as it does not exist");
                     return false;
@@ -313,7 +321,7 @@ namespace Tafe_System
                 command.ExecuteNonQuery();
                 foreach (KeyValuePair<string, SqlParameterDetails> keyvaluepair in parameterDictionary)
                 {
-                    if (!(keyvaluepair.Key == "@password" && !string.IsNullOrWhiteSpace(keyvaluepair.Value.value)))
+                    if (!(keyvaluepair.Key == "@hash" && !string.IsNullOrWhiteSpace(keyvaluepair.Value.value)))
                         keyvaluepair.Value.value = command.Parameters[keyvaluepair.Key].Value.ToString();
                 }
             }
@@ -338,19 +346,20 @@ namespace Tafe_System
                 if (BridgeQuery(bridgeQuery, key1, key2))
                 {
                     System.Windows.MessageBox.Show("Bridge " + (create ? "created" : "removed") + " successfully");
-                } else if(!create)
+                }
+                else if (!create)
                 {
                     System.Windows.MessageBox.Show("Bridge not deleted as it does not exist");
                 }
             }
         }
 
-        public string FindBridge(string bridgeQuery, KeyValuePair<string, SqlParameterDetails> key1, KeyValuePair<string, SqlParameterDetails> key2)
+        /*public string FindBridge(string bridgeQuery, KeyValuePair<string, SqlParameterDetails> key1, KeyValuePair<string, SqlParameterDetails> key2)
         {
             FindBridgeQuery(bridgeQuery, key1, key2, out int foundBridge);
             System.Diagnostics.Debug.WriteLine(foundBridge == -1 ? key1.Key + " or " + key2.Key + " invalid" : foundBridge.ToString());
             return foundBridge == -1 ? key1.Key + " or " + key2.Key + " invalid" : foundBridge.ToString();
-        }
+        }*/
 
         public bool BridgeQuery(string bridgeQuery, KeyValuePair<string, SqlParameterDetails> key1, KeyValuePair<string, SqlParameterDetails> key2)
         {
@@ -443,7 +452,7 @@ namespace Tafe_System
         }
 
 
-        public string CreateNewPasswordForUser(string password, KeyValuePair<string, SqlParameterDetails> primaryKey, string userSaltQuery)
+        public string CreateNewhashForUser(string hash, KeyValuePair<string, SqlParameterDetails> primaryKey, string userSaltQuery)
         {
             SqlCommand command = new SqlCommand(userSaltQuery, connection);
             command.Parameters.Add(GenerateSQLParameter(primaryKey));
@@ -451,7 +460,7 @@ namespace Tafe_System
             ExecuteStoredProcedureQuery(ref command, false, out _);
             try
             {
-                return HashedPassword(password, command.Parameters["@salt"].Value.ToString());
+                return HashedPassword(hash, command.Parameters["@salt"].Value.ToString());
             }
             finally
             {
@@ -569,16 +578,29 @@ namespace Tafe_System
             }
         }
 
-        public void NewDataGridSelection(DataGrid dsetSelected, DataGrid dsetToChange, int rowNumber, KeyValuePair<string, SqlParameterDetails> primaryKey, string query)
+        public string GetPrimaryValueFromSelection(DataGrid dsetSelected, int rowNumber)
         {
             DataRowView dataRowView = (DataRowView)dsetSelected.SelectedItem;
+            int selectedItem = 0;
             if (dataRowView != null)
             {
-                int selectedItem = Convert.ToInt32(dataRowView.Row[rowNumber]);
-
-                primaryKey.Value.value = selectedItem.ToString();
-                dsetToChange.ItemsSource = GetTableFromDatabase(query, primaryKey).DefaultView;
+                selectedItem = Convert.ToInt32(dataRowView.Row[rowNumber]);
             }
+            return selectedItem.ToString();
+        }
+
+        public void NewDataGridSelection(DataGrid dsetSelected, DataGrid dsetToChange, int rowNumber, KeyValuePair<string, SqlParameterDetails> primaryKey, string query)
+        {
+            primaryKey.Value.value = GetPrimaryValueFromSelection(dsetSelected, rowNumber);
+            dsetToChange.ItemsSource = GetTableFromDatabase(query, primaryKey).DefaultView;
+        }
+
+        public void NewDataGridSelection(DataGrid dsetSelected, DataGrid dsetToChange, int rowNumber, KeyValuePair<string, SqlParameterDetails> primaryKey, SqlParameterDictionary parameters, string query)
+        {
+
+            primaryKey.Value.value = GetPrimaryValueFromSelection(dsetSelected, rowNumber);
+            System.Diagnostics.Debug.WriteLine("Hm " + primaryKey.Key + ": " + primaryKey.Value.value);
+            dsetToChange.ItemsSource = GetTableFromDatabase(query, primaryKey, parameters).DefaultView;
         }
 
         public DataTable GetTableFromDatabase(string query)
@@ -594,6 +616,11 @@ namespace Tafe_System
         public DataTable GetTableFromDatabase(string query, SqlParameterDictionary parameterDictionary)
         {
             return GetAppropriateDataTableFromStoredProcedure(query, GenerateSQLParameters(parameterDictionary));
+        }
+
+        public DataTable GetTableFromDatabase(string query, KeyValuePair<string, SqlParameterDetails> primaryKey, SqlParameterDictionary parameterDictionary)
+        {
+            return GetAppropriateDataTableFromStoredProcedure(query, GenerateSQLParameter(primaryKey), GenerateSQLParameters(parameterDictionary));
         }
 
         public bool ExecuteStoredProcedureQuery(ref SqlCommand command, bool dispose, out int rowsAffected)
@@ -612,7 +639,8 @@ namespace Tafe_System
             }
             finally
             {
-                if (dispose) {
+                if (dispose)
+                {
                     command.Parameters.Clear();
                     command.Dispose();
                 }
@@ -647,6 +675,15 @@ namespace Tafe_System
         public DataTable GetAppropriateDataTableFromStoredProcedure(string query, List<SqlParameter> parameters)
         {
             SqlCommand command = new SqlCommand(query, connection);
+            foreach (SqlParameter parameter in parameters) command.Parameters.Add(parameter);
+            return StoredProcedureDataTable(command);
+        }
+
+
+        public DataTable GetAppropriateDataTableFromStoredProcedure(string query, SqlParameter primaryKey, List<SqlParameter> parameters)
+        {
+            SqlCommand command = new SqlCommand(query, connection);
+            command.Parameters.Add(primaryKey);
             foreach (SqlParameter parameter in parameters) command.Parameters.Add(parameter);
             return StoredProcedureDataTable(command);
         }

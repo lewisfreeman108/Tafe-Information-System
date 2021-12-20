@@ -17,7 +17,7 @@
             <DataGrid x:Name="dsetTimetableItem" HorizontalAlignment="Center" IsReadOnly="True" Height="134" Margin="0,364,0,0" VerticalAlignment="Top" Width="780" AutoGenerateColumns="False" RenderTransformOrigin="0.492,-0.166" ItemsSource="{Binding ElementName=dataGridTextColumn, Mode=OneWay}" SelectionChanged="dsetTimetableItem_SelectionChanged" Grid.Row="1">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Offering ID" Width=".6*" Binding="{Binding timetableid}"/>
-                    <DataGridTextColumn Header="Cluster ID" Width="2*" Binding ="{Binding courseunitclusterid}"/>
+                    <DataGridTextColumn Header="Cluster Name" Width="2*" Binding ="{Binding clustername}"/>
                     <DataGridTextColumn Header="Teacher ID" Width="*" Binding="{Binding teacherid}"/>
                     <DataGridTextColumn Header="Building" Width=".5*" Binding="{Binding building}"/>
                     <DataGridTextColumn Header="Room" Width=".5*" Binding="{Binding room}"/>
@@ -32,7 +32,8 @@
                 <DataGrid.Columns>
                     <DataGridTextColumn x:Name="dataGridTextColumn" Header="Student ID" Width="*" Binding="{Binding studentid}"/>
                     <DataGridTextColumn Header="Name" Width="*" Binding ="{Binding name}"/>
-                    <DataGridTextColumn Header="Email" Width="*" Binding="{Binding email}"/>
+                    <DataGridTextColumn Header="User Email" Width="*" Binding="{Binding useremail}"/>
+                    <DataGridTextColumn Header="Personal Email" Width="*" Binding="{Binding personalemail}"/>
                     <DataGridTextColumn Header="Mobile" Width="*" Binding="{Binding mobile}"/>
                     <DataGridTextColumn Header="Address" Width="*" Binding="{Binding address}"/>
                 </DataGrid.Columns>

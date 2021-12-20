@@ -8,11 +8,14 @@
         Title="MainWindow" Height="450" Width="800">
     <Grid>
         <Button x:Name="btnLogin" Content="Login" HorizontalAlignment="Left" Margin="400,236,0,0" VerticalAlignment="Top" Width="75" Click="btnLogin_Click" TabIndex="3"/>
-        <Label Content="UserID" HorizontalAlignment="Left" Margin="240,147,0,0" VerticalAlignment="Top" Width="83" Height="31" RenderTransformOrigin="-1.518,-2.454"/>
+        <Label Content="User Email" HorizontalAlignment="Left" Margin="240,147,0,0" VerticalAlignment="Top" Width="83" Height="31" RenderTransformOrigin="-1.518,-2.454"/>
         <Label Content="Password" HorizontalAlignment="Left" Margin="240,191,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.132,0.462"/>
-        <TextBox x:Name="txtUserID" HorizontalAlignment="Left" Height="23" Margin="311,151,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="164" Background="White" TabIndex="1" ToolTip=""/>
+        <TextBox x:Name="txtUserEmail" HorizontalAlignment="Left" Height="23" Margin="311,151,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="164" Background="White" TabIndex="1" ToolTip=""/>
         <PasswordBox x:Name="txtPassword" HorizontalAlignment="Left" Height="23" Margin="311,192,0,0" PasswordChar="*" Password="" VerticalAlignment="Top" Width="164" Background="White" ToolTip="" TabIndex="2"/>
         <Label Content="Sign in with your TAFE NSW account" HorizontalAlignment="Left" Margin="240,103,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.132,0.462" Width="496"/>
+        <Label Content="(For Testing) VALID ADMIN = test.test@tafe.nsw.edu.au" HorizontalAlignment="Left" Margin="145,3,0,0" VerticalAlignment="Top" HorizontalContentAlignment="Center" RenderTransformOrigin="-0.132,0.462" Width="496"/>
+        <Label Content="(For Testing) VALID TEACHER  = test.test1@tafe.nsw.edu.au" HorizontalAlignment="Left" Margin="145,34,0,0" VerticalAlignment="Top" HorizontalContentAlignment="Center" RenderTransformOrigin="-0.132,0.462" Width="496"/>
+        <Label Content="(For Testing) VALID STUDENT test.test@studytafe.nsw.edu.au&#xD;&#xA;Password for all is &quot;password&quot;&#xD;&#xA;" HorizontalAlignment="Left" Margin="145,65,0,0" VerticalAlignment="Top" HorizontalContentAlignment="Center" RenderTransformOrigin="-0.132,0.462" Width="496"/>
 
 
     </Grid>

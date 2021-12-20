@@ -15,53 +15,48 @@
                 <DataGrid.Columns>
                     <DataGridTextColumn x:Name="dataGridTextColumn" Header="Student ID" Width="*" Binding="{Binding studentid}"/>
                     <DataGridTextColumn Header="Name" Width="*" Binding ="{Binding name}"/>
-                    <DataGridTextColumn Header="Email" Width="*" Binding="{Binding email}"/>
+                    <DataGridTextColumn Header="User Email" Width="*" Binding="{Binding useremail}"/>
+                    <DataGridTextColumn Header="Personal Email" Width="*" Binding="{Binding personalemail}"/>
                     <DataGridTextColumn Header="Mobile" Width="*" Binding="{Binding mobile}"/>
                     <DataGridTextColumn Header="Address" Width="*" Binding="{Binding address}"/>
                 </DataGrid.Columns>
             </DataGrid>
-            <Label Content="All Students" HorizontalContentAlignment="Center" HorizontalAlignment="Center" Margin="0,9,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.132,0.462" Width="496"/>
+            <Label x:Name ="studentLabel" Content="All Students" HorizontalContentAlignment="Center" HorizontalAlignment="Center" Margin="0,9,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.132,0.462" Width="496"/>
             <Button x:Name="btnSearchStudentName" Content="Search" HorizontalAlignment="Left" Margin="277,81,0,0" VerticalAlignment="Top" Width="75" Click="btnSearchStudentName_Click" TabIndex="3"/>
             <Button x:Name="btnSearchStudentID" Content="Search" HorizontalAlignment="Left" Margin="277,112,0,0" VerticalAlignment="Top" Width="75" TabIndex="3" Click="btnSearchStudentID_Click"/>
             <Label Content="Student Results (Select a student in the above table)" HorizontalContentAlignment="Center" HorizontalAlignment="Center" Margin="0,392,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.132,0.462" Width="496" />
             <TextBlock  TextWrapping="WrapWithOverflow" Text="PLEASE NOTE: student results CANNOT be updated to prevent human error, the system will automatically update all other results when an assessment submission is graded."   HorizontalAlignment="Center" Margin="0,423,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.132,0.462" Width="782" Height="39" />
-            <DataGrid x:Name="dsetAssessmentResults" HorizontalAlignment="Center" IsReadOnly="True" Height="239" Margin="0,493,0,0" VerticalAlignment="Top" Width="780" AutoGenerateColumns="False" RenderTransformOrigin="0.492,-0.166" ItemsSource="{Binding ElementName=dataGridTextColumn, Mode=OneWay}" SelectionChanged="dsetStudents_SelectionChanged">
+            <DataGrid x:Name="dsetAssessmentResults" HorizontalAlignment="Left" IsReadOnly="True" Height="239" Margin="22,1233,0,0" VerticalAlignment="Top" Width="780" AutoGenerateColumns="False" RenderTransformOrigin="0.492,-0.166" ItemsSource="{Binding ElementName=dataGridTextColumn, Mode=OneWay}">
                 <DataGrid.Columns>
                     <DataGridTextColumn x:Name="dataGridTextColumn1" Header="Student ID" Width=".5*" Binding="{Binding studentid}"/>
                     <DataGridTextColumn Header="Name" Width="*" Binding ="{Binding name}"/>
-                    <DataGridTextColumn Header="Course ID" Width=".5*" Binding="{Binding courseid}"/>
-                    <DataGridTextColumn Header="Course Name" Width="*" Binding="{Binding coursename}"/>
                     <DataGridTextColumn Header="Assessment ID" Width="*" Binding="{Binding assessmentid}"/>
                     <DataGridTextColumn Header="Assessment Title" Width="*" Binding="{Binding assessmenttitle}"/>
                     <DataGridTextColumn Header="Result" Width=".5*" Binding="{Binding result}"/>
                 </DataGrid.Columns>
             </DataGrid>
-            <Label Content="Assessment results" HorizontalContentAlignment="Center" HorizontalAlignment="Center" Margin="0,462,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.132,0.462" Width="496" />
-            <DataGrid x:Name="dsetUnitResults" HorizontalAlignment="Center" IsReadOnly="True" Height="239" Margin="0,768,0,0" VerticalAlignment="Top" Width="780" AutoGenerateColumns="False" RenderTransformOrigin="0.492,-0.166" ItemsSource="{Binding ElementName=dataGridTextColumn, Mode=OneWay}" SelectionChanged="dsetStudents_SelectionChanged">
+            <Label Content="Assessment results" HorizontalContentAlignment="Center" HorizontalAlignment="Center" Margin="0,1202,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.132,0.462" Width="496" />
+            <DataGrid x:Name="dsetUnitResults" HorizontalAlignment="Left" IsReadOnly="True" Height="239" Margin="22,958,0,0" VerticalAlignment="Top" Width="780" AutoGenerateColumns="False" RenderTransformOrigin="0.492,-0.166" ItemsSource="{Binding ElementName=dataGridTextColumn, Mode=OneWay}" SelectionChanged="dsetUnits_SelectionChanged">
                 <DataGrid.Columns>
                     <DataGridTextColumn x:Name="dataGridTextColumn2" Header="Student ID" Width="*" Binding="{Binding studentid}"/>
                     <DataGridTextColumn Header="Name" Width="*" Binding ="{Binding name}"/>
-                    <DataGridTextColumn Header="Course ID" Width="*" Binding="{Binding courseid}"/>
-                    <DataGridTextColumn Header="Course Name" Width="*" Binding="{Binding coursename}"/>
                     <DataGridTextColumn Header="Unit ID" Width="*" Binding="{Binding unitid}"/>
                     <DataGridTextColumn Header="Unit Name" Width="*" Binding="{Binding unitname}"/>
                     <DataGridTextColumn Header="Result" Width="*" Binding="{Binding result}"/>
                 </DataGrid.Columns>
             </DataGrid>
-            <Label Content="Unit results" HorizontalContentAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Top" RenderTransformOrigin="-0.132,0.462" Width="496" Margin="0,737,0,0" />
-            <DataGrid x:Name="dsetClusterResults" HorizontalAlignment="Center" IsReadOnly="True" Height="239" Margin="0,1043,0,0" VerticalAlignment="Top" Width="780" AutoGenerateColumns="False" RenderTransformOrigin="0.492,-0.166" ItemsSource="{Binding ElementName=dataGridTextColumn, Mode=OneWay}" SelectionChanged="dsetStudents_SelectionChanged">
+            <Label Content="Unit results" HorizontalContentAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Top" RenderTransformOrigin="-0.132,0.462" Width="496" Margin="0,927,0,0" />
+            <DataGrid x:Name="dsetClusterResults" HorizontalAlignment="Left" IsReadOnly="True" Height="239" Margin="22,683,0,0" VerticalAlignment="Top" Width="780" AutoGenerateColumns="False" RenderTransformOrigin="0.492,-0.166" ItemsSource="{Binding ElementName=dataGridTextColumn, Mode=OneWay}" SelectionChanged="dsetClusters_SelectionChanged">
                 <DataGrid.Columns>
                     <DataGridTextColumn x:Name="dataGridTextColumn3" Header="Student ID" Width="*" Binding="{Binding studentid}"/>
                     <DataGridTextColumn Header="Name" Width="*" Binding ="{Binding name}"/>
-                    <DataGridTextColumn Header="Course ID" Width="*" Binding="{Binding courseid}"/>
-                    <DataGridTextColumn Header="Course Name" Width="*" Binding="{Binding coursename}"/>
                     <DataGridTextColumn Header="Cluster ID" Width="*" Binding="{Binding clusterid}"/>
                     <DataGridTextColumn Header="Cluster Name" Width="*" Binding="{Binding clustername}"/>
                     <DataGridTextColumn Header="Result" Width="*" Binding="{Binding result}"/>
                 </DataGrid.Columns>
             </DataGrid>
-            <Label Content="Cluster results" HorizontalContentAlignment="Center" HorizontalAlignment="Center" Margin="0,1012,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.132,0.462" Width="496" />
-            <DataGrid x:Name="dsetCourseResults" HorizontalAlignment="Center" IsReadOnly="True" Height="149" Margin="0,1318,0,0" VerticalAlignment="Top" Width="780" AutoGenerateColumns="False" RenderTransformOrigin="0.492,-0.166" ItemsSource="{Binding ElementName=dataGridTextColumn, Mode=OneWay}" SelectionChanged="dsetStudents_SelectionChanged">
+            <Label Content="Cluster results" HorizontalContentAlignment="Center" HorizontalAlignment="Center" Margin="0,647,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.132,0.462" Width="496" />
+            <DataGrid x:Name="dsetCourseResults" HorizontalAlignment="Center" IsReadOnly="True" Height="149" Margin="0,493,0,0" VerticalAlignment="Top" Width="780" AutoGenerateColumns="False" RenderTransformOrigin="0.492,-0.166" ItemsSource="{Binding ElementName=dataGridTextColumn, Mode=OneWay}" SelectionChanged="dsetCourses_SelectionChanged">
                 <DataGrid.Columns>
                     <DataGridTextColumn x:Name="dataGridTextColumn4" Header="Student ID" Width="*" Binding="{Binding studentid}"/>
                     <DataGridTextColumn Header="Name" Width="*" Binding ="{Binding name}"/>
@@ -70,7 +65,7 @@
                     <DataGridTextColumn Header="Result" Width="*" Binding="{Binding enrolmentstatus}"/>
                 </DataGrid.Columns>
             </DataGrid>
-            <Label Content="Course results" HorizontalContentAlignment="Center" HorizontalAlignment="Center" Margin="0,1287,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.132,0.462" Width="496" />
+            <Label Content="Course results" HorizontalContentAlignment="Center" HorizontalAlignment="Center" Margin="0,462,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.132,0.462" Width="496" />
             <xctk:WatermarkTextBox x:Name ="txtBoxSearchByName" Watermark="Search for a student by their name" Width="243" Height="23" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="11,79,0,0" />
             <xctk:WatermarkTextBox x:Name ="txtBoxSearchByID" Watermark="Search for a student by their ID" Width="243" Height="24" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,110,0,0" />
             <Button x:Name="btnSearchAllStudents" Content="All Students" HorizontalAlignment="Left" Margin="377,112,0,0" VerticalAlignment="Top" Width="116" Click="btnSearchAllStudents_Click" TabIndex="3"/>

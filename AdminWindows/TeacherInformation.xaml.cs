@@ -46,11 +46,11 @@ namespace Tafe_System
             this.databaseConnection = databaseConnection;
 
             teacherParameters.Add("@admin", new SqlParameterDetails(SqlDbType.Bit, null));
-            teacherParameters.Add("@password", new SqlParameterDetails(SqlDbType.VarChar, 255));
+            teacherParameters.Add("@hash", new SqlParameterDetails(SqlDbType.VarChar, 255));
             teacherParameters.Add("@salt", new SqlParameterDetails(SqlDbType.VarChar, 255));
             teacherParameters.Add("@firstname", new SqlParameterDetails(SqlDbType.VarChar, 50));
             teacherParameters.Add("@surname", new SqlParameterDetails(SqlDbType.VarChar, 50));
-            teacherParameters.Add("@email", new SqlParameterDetails(SqlDbType.VarChar, 100));
+            teacherParameters.Add("@personalemail", new SqlParameterDetails(SqlDbType.VarChar, 100));
             teacherParameters.Add("@mobile", new SqlParameterDetails(SqlDbType.Char, 10));
             teacherParameters.Add("@streetaddress", new SqlParameterDetails(SqlDbType.VarChar, 100));
             teacherParameters.Add("@suburb", new SqlParameterDetails(SqlDbType.VarChar, 40));
@@ -59,7 +59,7 @@ namespace Tafe_System
             teacherParameters.Add("@employmenttype", new SqlParameterDetails(SqlDbType.VarChar, 15));
             teacherParameters.Add("@locationname", new SqlParameterDetails(SqlDbType.VarChar, 80));
 
-            addTeacherTextBoxElements = new WatermarkTextBox[] { addTFirstName, addTSurname, addTEmail, addTMobile, addTStreetAddress, addTSuburb, addTPostcode, addTLocationName };
+            addTeacherTextBoxElements = new WatermarkTextBox[] { addTFirstName, addTSurname, addTPersonalEmail, addTMobile, addTStreetAddress, addTSuburb, addTPostcode, addTLocationName };
             addTeacherComboBoxElementsValue = new ComboBox[] { addTEmploymentType, addTState };
             addTeacherCheckBoxElements = new CheckBox[] { addTAdmin };
         }

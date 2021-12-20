@@ -16,14 +16,15 @@
                     <DataGridTextColumn Header="Admin" Width=".5*" Binding="{Binding admin}"/>
                     <DataGridTextColumn Header="Based Location" Width="*" Binding ="{Binding locationname}"/>
                     <DataGridTextColumn Header="Name" Width="*" Binding ="{Binding name}"/>
-                    <DataGridTextColumn Header="Email" Width="*" Binding="{Binding email}"/>
+                    <DataGridTextColumn Header="User Email" Width="*" Binding="{Binding useremail}"/>
+                    <DataGridTextColumn Header="Personal Email" Width="*" Binding="{Binding personalemail}"/>
                     <DataGridTextColumn Header="Mobile" Width="*" Binding="{Binding mobile}"/>
                     <DataGridTextColumn Header="Address" Width="*" Binding="{Binding address}"/>
                     <DataGridTextColumn Header="Type of Employment" Width="*" Binding="{Binding employmenttype}"/>
                 </DataGrid.Columns>
             </DataGrid>
             <TextBlock TextAlignment="Center" HorizontalAlignment="Center" Margin="0,9,0,0" VerticalAlignment="Top" TextWrapping="WrapWithOverflow" RenderTransformOrigin="-0.132,0.462" Width="273"><Run Text="Teachers"/><LineBreak/><Run Text="Searching with blank filters will return all rows"/></TextBlock>
-            <Label Content="All Courses and Locations Taught by Teacher" HorizontalContentAlignment="Center" HorizontalAlignment="Center" Margin="0,518,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.132,0.462" Width="570"/>
+            <Label Content="All Courses and Locations Currently Taught by Teacher" HorizontalContentAlignment="Center" HorizontalAlignment="Center" Margin="0,518,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.132,0.462" Width="570"/>
             <DataGrid x:Name="dsetCoursesAndLocationsForTeacher" HorizontalAlignment="Center" IsReadOnly="True" Height="134" Margin="0,549,0,0" VerticalAlignment="Top" Width="780" AutoGenerateColumns="False" RenderTransformOrigin="0.492,-0.166" ItemsSource="{Binding ElementName=dataGridTextColumn, Mode=OneWay}">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Teacher ID" Width="*" Binding="{Binding teacherid}"/>
@@ -68,7 +69,7 @@
             <xctk:WatermarkTextBox x:Name ="addTSuburb" Watermark="Suburb" Width="118" Height="23" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="280,934,0,0" />
             <xctk:WatermarkTextBox x:Name ="addTPostcode" Watermark="Postcode" MaxLength="4" Width="118" Height="23" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="402,934,0,0" />
             <Button x:Name="btnAddTeacher" Content="Add" HorizontalAlignment="Left" Margin="180,1011,0,0" VerticalAlignment="Top" Width="74" TabIndex="3" RenderTransformOrigin="0.523,1.926" Click="btnAddTeacher_Click"/>
-            <xctk:WatermarkTextBox x:Name ="addTEmail" Watermark="Email" Width="118" Height="23" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="402,896,0,0" />
+            <xctk:WatermarkTextBox x:Name ="addTPersonalEmail" Watermark="Personal Email" Width="118" Height="23" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="402,896,0,0" />
             <xctk:WatermarkTextBox x:Name ="addTPassword" Watermark="Password" Width="118" Height="23" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="158,971,0,0" />
             <ComboBox x:Name="addTState" Width="118" Height="23" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="524,934,0,0" SelectedValuePath="Content">
                 <ComboBoxItem IsSelected="True" Content="NSW"/>

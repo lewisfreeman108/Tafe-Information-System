@@ -74,7 +74,7 @@ namespace Tafe_System
             this.locations = locations;
             btnLocations.Visibility = Visibility.Visible;
             this.studentResults = studentResults;
-            
+
             btnStudentResultsAdmin.Visibility = Visibility.Visible;
             this.offering = offering;
             btnOfferings.Visibility = Visibility.Visible;
@@ -88,15 +88,15 @@ namespace Tafe_System
             btnStudentTimeTables.Visibility = Visibility.Hidden;
         }
 
-        public void StudentUser(MyAssessments myAssessments, MyTimetables myTimetables, string userID)
+        public void StudentUser(MyAssessments myAssessments, MyTimetables myTimetables, string studentID)
         {
             labelMainMenu.Content = "Student";
             this.myAssessments = myAssessments;
             btnStudentsAssessments.Visibility = Visibility.Visible;
-            myAssessments.NewUser(userID);
+            myAssessments.NewUser(studentID);
             this.myTimetables = myTimetables;
             btnStudentTimeTables.Visibility = Visibility.Visible;
-            myTimetables.NewUser(userID);
+            myTimetables.NewUser(studentID);
 
             btnStudentResultsTeacher.Visibility = Visibility.Hidden;
             btnSubmissions.Visibility = Visibility.Hidden;

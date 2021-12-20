@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data;
 using System.Windows;
 using System.Windows.Controls;
@@ -26,7 +25,7 @@ namespace Tafe_System.StudentWindows
         private readonly KeyValuePair<string, SqlParameterDetails> submissionFileName = new KeyValuePair<string, SqlParameterDetails>("@submissionfilename", new SqlParameterDetails(SqlDbType.VarChar, 100));
 
         private readonly KeyValuePair<string, SqlParameterDetails> submissionResult = new KeyValuePair<string, SqlParameterDetails>("@result", new SqlParameterDetails(SqlDbType.VarChar, 15));
-        
+
         private readonly SqlParameterDictionary resourceParameters = new SqlParameterDictionary();
 
 
@@ -57,14 +56,14 @@ namespace Tafe_System.StudentWindows
             DataRowView dataRowView = (DataRowView)dsetEnrolments.SelectedItem;
             if (dataRowView != null)
             {
-                String selectedItem = dataRowView.Row[0].ToString();
+                string selectedItem = dataRowView.Row[0].ToString();
                 databaseConnection.NewDataGridSelection(dsetEnrolments, dsetUnitClusters, 0, enrolmentPrimaryKey, "tsp_GetAllCLustersForEnrolment");
                 resourceParameters["@enrolmentid"].value = selectedItem;
                 dsetAssessments.ItemsSource = null;
                 dsetResources.ItemsSource = null;
                 dsetSubmissions.ItemsSource = null;
             }
-                
+
         }
 
         private void dsetUnitCluster_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -72,14 +71,14 @@ namespace Tafe_System.StudentWindows
             DataRowView dataRowView = (DataRowView)dsetUnitClusters.SelectedItem;
             if (dataRowView != null)
             {
-                String selectedItem = dataRowView.Row[0].ToString();
+                string selectedItem = dataRowView.Row[0].ToString();
 
                 databaseConnection.NewDataGridSelection(dsetUnitClusters, dsetAssessments, 0, clusterPrimaryKey, "tsp_GetAssessmentsForUnitCluster");
                 resourceParameters["@clusterid"].value = selectedItem;
                 dsetResources.ItemsSource = databaseConnection.GetTableFromDatabase("tsp_GetResourcesForUnitCluster", resourceParameters).DefaultView;
                 dsetSubmissions.ItemsSource = null;
             }
-                
+
         }
 
         private void dsetAssessment_SelectionChanged(object sender, SelectionChangedEventArgs e)

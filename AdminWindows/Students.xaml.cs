@@ -50,18 +50,19 @@ namespace Tafe_System
             searchSemester.IsEnabled = false;
 
 
-            studentParameters.Add("@password", new SqlParameterDetails(SqlDbType.VarChar, 255));
+
             studentParameters.Add("@salt", new SqlParameterDetails(SqlDbType.VarChar, 255));
+            studentParameters.Add("@hash", new SqlParameterDetails(SqlDbType.VarChar, 255));
             studentParameters.Add("@firstname", new SqlParameterDetails(SqlDbType.VarChar, 50));
             studentParameters.Add("@surname", new SqlParameterDetails(SqlDbType.VarChar, 50));
-            studentParameters.Add("@email", new SqlParameterDetails(SqlDbType.VarChar, 100));
+            studentParameters.Add("@personalemail", new SqlParameterDetails(SqlDbType.VarChar, 100));
             studentParameters.Add("@mobile", new SqlParameterDetails(SqlDbType.Char, 10));
             studentParameters.Add("@streetaddress", new SqlParameterDetails(SqlDbType.VarChar, 100));
             studentParameters.Add("@suburb", new SqlParameterDetails(SqlDbType.VarChar, 40));
             studentParameters.Add("@postcode", new SqlParameterDetails(SqlDbType.Char, 4));
             studentParameters.Add("@state", new SqlParameterDetails(SqlDbType.VarChar, 10));
 
-            addStudentTextBoxElements = new WatermarkTextBox[] { addSFirstName, addSSurname, addSEmail, addSMobile, addSStreetAddress, addSSuburb, addSPostcode };
+            addStudentTextBoxElements = new WatermarkTextBox[] { addSFirstName, addSSurname, addSPersonalEmail, addSMobile, addSStreetAddress, addSSuburb, addSPostcode };
             addStudentComboBoxElementsValue = new ComboBox[] { addSState };
 
             enrolmentParameters.Add("@studentid", new SqlParameterDetails(SqlDbType.Int, null));
@@ -160,7 +161,7 @@ namespace Tafe_System
 
         private void btnAddStudent_Click(object sender, RoutedEventArgs e)
         {
-            if (ValidationHelper.ValidateNoIntegers("First name", addSFirstName.Text) && ValidationHelper.ValidateNoIntegers("Surname", addSSurname.Text) && ValidationHelper.ValidateIsEmail(addSEmail.Text) && ValidationHelper.ValidateIsMobile("Mobile number", addSMobile.Text) && ValidationHelper.ValidateNoIntegers("Suburb", addSSuburb.Text) && ValidationHelper.ValidateIsPostCode("Postcode", addSPostcode.Text))
+            if (ValidationHelper.ValidateNoIntegers("First name", addSFirstName.Text) && ValidationHelper.ValidateNoIntegers("Surname", addSSurname.Text) && ValidationHelper.ValidateIsEmail(addSPersonalEmail.Text) && ValidationHelper.ValidateIsMobile("Mobile number", addSMobile.Text) && ValidationHelper.ValidateNoIntegers("Suburb", addSSuburb.Text) && ValidationHelper.ValidateIsPostCode("Postcode", addSPostcode.Text))
             {
                 if (databaseConnection.AddUserToDatabase(studentParameters, addSPassword.Text, addStudentTextBoxElements, addStudentComboBoxElementsValue, null, "S", "Successfully added student", "tsp_AddStudent"))
                 {
@@ -173,7 +174,7 @@ namespace Tafe_System
 
         private void btnUpdateStudent_Click(object sender, RoutedEventArgs e)
         {
-            if (ValidationHelper.ValidateOnlyIntegers("Student ID", updateSStudentID.Text) && ValidationHelper.ValidateNoIntegers("First name", addSFirstName.Text) && ValidationHelper.ValidateNoIntegers("Surname", addSSurname.Text) && ValidationHelper.ValidateIsEmail(addSEmail.Text) && ValidationHelper.ValidateIsMobile("Mobile number", addSMobile.Text) && ValidationHelper.ValidateNoIntegers("Suburb", addSSuburb.Text) && ValidationHelper.ValidateIsPostCode("Postcode", addSPostcode.Text))
+            if (ValidationHelper.ValidateOnlyIntegers("Student ID", updateSStudentID.Text) && ValidationHelper.ValidateNoIntegers("First name", addSFirstName.Text) && ValidationHelper.ValidateNoIntegers("Surname", addSSurname.Text) && ValidationHelper.ValidateIsEmail(addSPersonalEmail.Text) && ValidationHelper.ValidateIsMobile("Mobile number", addSMobile.Text) && ValidationHelper.ValidateNoIntegers("Suburb", addSSuburb.Text) && ValidationHelper.ValidateIsPostCode("Postcode", addSPostcode.Text))
             {
                 databaseConnection.UpdateUserInDatabase(studentPrimaryKey, studentParameters, addSPassword.Text, "tsp_GetStudentSalt", updateSStudentID, addStudentTextBoxElements, addStudentComboBoxElementsValue, "S", "tsp_GetStudentDetails", "tsp_UpdateStudentDetails", "Successfully updated user");
             }
@@ -258,7 +259,7 @@ namespace Tafe_System
 
         private void btnLogOut_Click(object sender, RoutedEventArgs e)
         {
-            this.Hide();
+            Hide();
             Reset();
             mainMenu.Show();
         }

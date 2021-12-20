@@ -83,7 +83,7 @@ namespace Tafe_System.TeacherWindows
         {
             if (string.IsNullOrWhiteSpace(txtboxSearchResources.Text))
             {
-                dsetResources.ItemsSource = databaseConnection.GetTableFromDatabase("tsp_GetAllTeacherResources", teacherPrimaryKey).DefaultView; 
+                dsetResources.ItemsSource = databaseConnection.GetTableFromDatabase("tsp_GetAllTeacherResources", teacherPrimaryKey).DefaultView;
             }
             else
             {

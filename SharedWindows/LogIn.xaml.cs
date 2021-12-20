@@ -49,19 +49,23 @@ namespace Tafe_System
 
         private void btnLogin_Click(object sender, RoutedEventArgs e)
         {
-            if (ValidationHelper.ValidateOnlyIntegers("User ID", txtUserID.Text))
+            if (ValidationHelper.ValidateIsEmail(txtUserEmail.Text))
             {
-                int loginAttemptResult = databaseConnection.LogUserIn(txtUserID.Text, txtPassword.Password);
+                string userID = databaseConnection.GetStudentOrTeacherIDFromUserEmail(txtUserEmail.Text);
+                System.Diagnostics.Debug.WriteLine("userID is " + userID);
+                int loginAttemptResult = databaseConnection.LogUserIn(userID, txtPassword.Password);
+
+
                 switch (loginAttemptResult)
                 {
-                    case 0:
-                        MessageBox.Show("UserID or Password is incorrect");
+                    default:
+                        _ = MessageBox.Show("UserID or Password is incorrect");
                         break;
                     case 1:
-                        mainMenu.StudentUser(myAssessments, myTimetables, txtUserID.Text);
+                        mainMenu.StudentUser(myAssessments, myTimetables, userID);
                         break;
                     case 2:
-                        mainMenu.TeacherUser(studentResults, submissions, assessmentEvents, resources, txtUserID.Text);
+                        mainMenu.TeacherUser(studentResults, submissions, assessmentEvents, resources, userID);
                         break;
                     case 3:
                         mainMenu.AdminUser(courseInformation, locations, offering, studentResults, students, teacherInformation);
@@ -71,7 +75,7 @@ namespace Tafe_System
                 {
                     mainMenu.Show();
                     txtPassword.Clear();
-                    txtUserID.Clear();
+                    txtUserEmail.Clear();
                     this.Hide();
                 }
             }
